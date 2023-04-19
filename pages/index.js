@@ -1,127 +1,70 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import { Inter } from 'next/font/google'
+import { useState } from 'react'
+import ShopLayout from '@/components/layout/shopLayout'
+import StickyContainer from '@/components/global/stickyContainer'
+import Hero from '@/components/global/hero'
+import Sort from '@/components/category/sort'
+import Products from '@/components/category/products'
+import Breadcrumbs from '@/components/global/breadcrumbs'
+import Filters from '@/components/category/filters'
 import { getProducts, getCategories } from '@/lib/dbProducts'
 
-const inter = Inter({ subsets: ['latin'] })
-
 export async function getServerSideProps(context) {
-  const products = await getProducts()
-  const categories = await getCategories()
+  const productData = await getProducts()
+  const categoryData = await getCategories()
   
   return {
-    props: { categories, products }, // will be passed to the page component as props
+    props: { categoryData, productData },
   }
 }
 
-export default function Home({ categories, products }) {
-  const filterBtns = [...Array(5)]
+export default function Home({ categoryData, productData }) {
+  const [products, setProducts] = useState(productData)
+  
+  const sortOptions = [
+    {value: "price_high" , name: "Price - high to low"},
+    {value: "price_low", name: "Price - low to high" },
+    {value: "mass", name: "Mass"},
+    {value: "distance", name: "Distance"}
+  ]
+
+  function handleFilterChange(e) {
+    console.log(e.target)
+  }
+  
+  function handleSortChange(e) {
+    console.log(e.target)
+  }
 
   return (
-    <div className={inter.className}>
-      <header className="header">
-        <div className="logo">
-          <Image src="/next.svg" alt="Logo" width={200} height={100}/>
-        </div>
+    <ShopLayout
+      categories={categoryData}> 
+      <Hero 
+        heading="Buy Planets!" 
+        image=""/>
 
-        <nav className="primary-nav">
-          <ul>
-            <li><Link href="/">Planets</Link></li>
-            <li><Link href="/">Galaxies</Link></li>
-            <li><Link href="/">Constellations</Link></li>
-          </ul>
-        </nav>
-      </header>
-       
-      <main>
-        <section className="hero">
-          <h1>Buy Planets!</h1>
-          <div></div>
-        </section>
+      <StickyContainer>
+        <Breadcrumbs 
+          links={[{href: '/', text: 'Home'}]}
+          currentPageName="Planets"/>
+        
+        <Sort 
+          options={sortOptions}
+          onChange={handleSortChange}/>
+      </StickyContainer>
 
-        <section className="secondary-nav container">
-          <div className="breadcrumbs">
-            <Link href="#">Home</Link> 
-            &nbsp;&gt; Planets
-          </div>
-          <div className="sort align-right">
-            <b>SORT</b> &nbsp;
-            <select className="sort__input">
-              <option value="option1">Price - high to low</option>
-              <option value="option1">Price - low to high</option>
-              <option value="option1">Mass</option>
-              <option value="option1">Distance</option>
-            </select>
-          </div>
-        </section>
+      <div className="container container--main">
+        <div className="grid">
+          <aside className="grid__aside">
+            <Filters 
+              onClick={handleFilterChange}/>
+          </aside>
 
-        <div className="container container--main">
-          <div className="grid">
-            <aside className="grid__aside">
-
-              <section className="filters">
-                <b>FILTERS</b>
-                <fieldset className="filter">
-                  <legend>Elements</legend>
-                  <ul className="filter__btn-list">
-                    <li className="filter__btn-item">
-                      <button className="filter__btn filter__btn--active">C</button>
-                    </li>
-                    {filterBtns.map((filter, i) => (
-                      <li key={i} className="filter__btn-item">
-                        <button className="filter__btn">CH4</button>
-                      </li>
-                    ))}
-                  </ul>
-                </fieldset>
-                <fieldset className="filter">
-                  <legend>Mass</legend>
-                  <input className="filter__input" type="range" id="mass" name="mass" min="0" max="11" />
-                </fieldset>
-                <fieldset className="filter">
-                  <legend>Distance</legend>
-                  <input className="filter__input" type="range" id="mass" name="mass" min="0" max="11" />
-                </fieldset>
-              </section>
-
-            </aside>
-
-            <div className="grid__main">
-              <section className="products">
-                {products.map((product, i) => (
-                  <div className="product" key={i}>
-                    <Link href="#">
-                      <Image 
-                        className="product__image" 
-                        src={product.images[0]} 
-                        alt="" 
-                        width={200} 
-                        height={300}   
-                      />
-                    </Link>
-                    <ul className="product__swatches">
-                      <li className="product__swatch">
-                        <button className="product__swatch-btn product__swatch-btn--active"></button>
-                      </li>
-                      <li className="product__swatch">
-                        <button className="product__swatch-btn"></button>
-                      </li>
-                    </ul>
-                    <div className="product__name">
-                      <Link href="#">{product.name}</Link>
-                    </div>
-                    <div className="product__price">${product.price}</div>
-                  </div>
-                ))}
-              </section>
-            </div>
+          <div className="grid__main">
+            <Products 
+              products={products}/>
           </div>
         </div>
-      </main>
-
-      <footer>
-
-      </footer>
-    </div>
+      </div>
+    </ShopLayout>
   )
 }
