@@ -1,0 +1,13 @@
+.grid {
+  display: flex;
+}
+
+  .grid__aside {
+    width: 290px;
+    padding-right: 60px;
+  }
+
+  .grid__main {
+    width: auto;
+    padding-bottom: 100px;
+  }
