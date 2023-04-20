@@ -1,11 +1,14 @@
-.products {
+.products__grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   column-gap: 10px;
   row-gap: 60px;
+  margin-top: 10px;
 }
 
-  .product {}
+  .product {
+    text-align: center;
+  }
 
     .product__image {
       display: block;
@@ -24,23 +27,22 @@
     .product__price {}
 
     .product__swatches {
-      display: grid;
-      grid-template-columns: repeat(3, 20px [col-start]);
-      column-gap: 10px;
-      row-gap: 0;
-      margin-bottom: 10px;
-      padding: 0 4px;
+      display: flex;
+      justify-content: center;
+      margin: 0 0 10px;
     }
 
-      .product__swatch {}
+      .product__swatch {
+        margin: 0 5px;
+      }
         
         .product__swatch-btn {
+          position: relative;
           width: 20px;
           height: 20px;
-          background: green;
-          position: relative;
-          border-radius: 50%;
           margin: 0;
+          border-radius: 50%;
+          background-size: cover;
 
           &:after {
             content: "";
@@ -50,13 +52,19 @@
             right: 0;
             bottom: 0;
             border-radius: 50%;
-
-          }
-          &.product__swatch-btn--active:after {
             top: -4px;
             right: -4px;
             bottom: -4px;
             left: -4px;
+            opacity: 0;
+            border: 0px solid black;
+            transform: scale(0);
             border: 2px solid black;
+            transition: transform .25s ease-out, opacity .2s ease;
+          }
+
+          &.product__swatch-btn--active:after {
+            opacity: 1;
+            transform: scale(1);
           }
         }

@@ -8,13 +8,13 @@
   --background-end-rgb: 255, 255, 255;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
+// @media (prefers-color-scheme: dark) {
+//   :root {
+//     --foreground-rgb: 255, 255, 255;
+//     --background-start-rgb: 0, 0, 0;
+//     --background-end-rgb: 0, 0, 0;
+//   }
+// }
 
 body {
   color: rgb(var(--foreground-rgb));
@@ -35,6 +35,10 @@ a:hover {
   text-align: right;
 }
 
+.uppercase {
+  text-transform: uppercase;
+}
+
 .container {
   width: 1180px;
   max-width: 100%;
@@ -53,4 +57,5 @@ a:hover {
 @import './components/products.scss';
 @import './components/sort.scss';
 @import './components/filters.scss';
+@import './components/toggle.scss';
 @import './components/breadcrumbs.scss';

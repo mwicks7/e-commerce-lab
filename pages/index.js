@@ -21,18 +21,26 @@ export default function Home({ categoryData, productData }) {
   const [products, setProducts] = useState(productData)
   
   const sortOptions = [
-    {value: "price_high" , name: "Price - high to low"},
-    {value: "price_low", name: "Price - low to high" },
-    {value: "mass", name: "Mass"},
-    {value: "distance", name: "Distance"}
+    {value: "filters.distanceFromSun", name: "Distance From Sun"},
+    {value: "filters.surfaceArea", name: "Surface Area"},
+    {value: "priceHigh" , name: "Price - high to low"},
+    {value: "priceLow", name: "Price - low to high" },
   ]
 
   function handleFilterChange(e) {
     console.log(e.target)
   }
   
-  function handleSortChange(e) {
-    console.log(e.target)
+  async function handleSortChange(e) {
+    const response = await fetch('/api/products', { 
+      method: 'POST', 
+      body: JSON.stringify({
+        sort: e.target.value
+      })
+    })
+    const products = await response.json()
+    console.log(products)
+    setProducts(products)
   }
 
   return (
@@ -44,7 +52,9 @@ export default function Home({ categoryData, productData }) {
 
       <StickyContainer>
         <Breadcrumbs 
-          links={[{href: '/', text: 'Home'}]}
+          links={[
+            {href: '/', text: 'Home'}
+          ]}
           currentPageName="Planets"/>
         
         <Sort 

@@ -1,34 +1,15 @@
-import Image from 'next/image'
-import Link from 'next/link'
+import { useState } from 'react'
+import Product from '@/components/category/product'
 
-export default function Products({ products }) {
+export default function Products({ products }) {  
   return (
     <section className="products">
-      {products.map((product, i) => (
-        <div className="product" key={i}>
-          <Link href="#">
-            <Image 
-              className="product__image" 
-              src={product.images[0]} 
-              alt="" 
-              width={200} 
-              height={300}   
-            />
-          </Link>
-          <ul className="product__swatches">
-            <li className="product__swatch">
-              <button className="product__swatch-btn product__swatch-btn--active"></button>
-            </li>
-            <li className="product__swatch">
-              <button className="product__swatch-btn"></button>
-            </li>
-          </ul>
-          <div className="product__name">
-            <Link href="#">{product.name}</Link>
-          </div>
-          <div className="product__price">${product.price}</div>
-        </div>
-      ))}
+      <h2 className="uppercase">Products ({products.length})</h2>
+      <div class="products__grid">
+        {products.map((product, i) => (
+          <Product key={`${product.name}_product_${i}`} product={product} />
+        ))}
+      </div>
     </section>
   )
 }
