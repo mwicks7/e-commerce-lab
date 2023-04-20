@@ -1,4 +1,5 @@
 import Toggle from '@/components/forms/toggle'
+import { useState } from 'react'
 
 export default function Filters() {
   const filterBtns = [...Array(5)]
@@ -6,6 +7,16 @@ export default function Filters() {
   return (
     <section className="filters">
       <h2>FILTERS</h2>
+      <fieldset className="filter">
+        <legend>Include Pluto</legend>
+        <Toggle 
+          name="include_pluto"
+          value="true"
+          // checked={includePluto}
+          // onChange={handleFilterChange}
+        />
+      </fieldset>
+
       <fieldset className="filter">
         <legend>Planet Type</legend>
         <ul className="filter__btn-list">
@@ -18,13 +29,6 @@ export default function Filters() {
             </li>
           ))}
         </ul>
-      </fieldset>
-      <fieldset className="filter">
-        <legend>Include Pluto</legend>
-        <Toggle 
-          name="moons"
-          value="true"
-        />
       </fieldset>
     </section>
   )

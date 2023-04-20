@@ -1,8 +1,8 @@
 
-export default function Toggle() {
+export default function Toggle({ checked }) {
   return (
     <label className="toggle">
-      <input type="checkbox" className="toggle__checkbox"/>
+      <input type="checkbox" className="toggle__checkbox" checked={checked}/>
       <span className="toggle__slider"></span>
     </label>
   )
