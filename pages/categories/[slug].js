@@ -71,7 +71,7 @@ export default function Home({ categories, currentCat, productData }) {
         if (cb.checked) newFilters[name].push(cb.value)
       })
     }
-        
+
     setFilterState(newFilters)
   }, [filterState])
 
@@ -79,7 +79,7 @@ export default function Home({ categories, currentCat, productData }) {
     <ShopLayout
       categories={categories}> 
       <Hero 
-        heading="Buy Planets!" 
+        heading="Planets" 
         image=""
       />
 
