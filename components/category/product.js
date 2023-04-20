@@ -37,6 +37,7 @@ export default function Product({ product }) {
       <div className="product__price">${product.price.toLocaleString("en-US")}.00</div>
       <div className="product__price">Distance from sun: {product.filters.distanceFromSun}</div>
       <div className="product__price">Surface area: {product.filters.surfaceArea}</div>
+      <div className="product__price">Type: {product.filters.type}</div>
     </div>
   )
 }

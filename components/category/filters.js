@@ -1,35 +1,39 @@
 import Toggle from '@/components/forms/toggle'
 import { useState } from 'react'
 
-export default function Filters() {
-  const filterBtns = [...Array(5)]
-
+export default function Filters({ fieldsets, onChange }) {
   return (
     <section className="filters">
       <h2>FILTERS</h2>
-      <fieldset className="filter">
-        <legend>Include Pluto</legend>
-        <Toggle 
-          name="include_pluto"
-          value="true"
-          // checked={includePluto}
-          // onChange={handleFilterChange}
-        />
-      </fieldset>
+      <form onChange={onChange}>
+        {fieldsets.map((fs, i) => (
+          <fieldset key={`${fs.type}fs${i}`} className="filter">
+            <legend>{fs.label}</legend>
 
-      <fieldset className="filter">
-        <legend>Planet Type</legend>
-        <ul className="filter__btn-list">
-          <li className="filter__btn-item">
-            <button className="filter__btn filter__btn--active">C</button>
-          </li>
-          {filterBtns.map((filter, i) => (
-            <li key={i} className="filter__btn-item">
-              <button className="filter__btn">CH4</button>
-            </li>
-          ))}
-        </ul>
-      </fieldset>
+            {fs.type === "toggle" && 
+              <Toggle 
+                name={fs.name}
+                value={fs.value}
+                // checked={true}
+              />
+            }
+
+            {fs.type === "checkbox" && 
+              <ul className="filter__btn-list">
+                {fs.options.map((option, i) => (
+                  <li key={`${option.value}_filter_${i}`} className="filter__btn-item">
+                    <label className="filter__btn">
+                    <input type="checkbox" className="filter__btn" name={`${fs.name}`} value={option.value}/>
+                    {option.label} 
+                    </label>
+
+                  </li>
+                ))}
+              </ul>
+            }
+          </fieldset>
+        ))}
+      </form>
     </section>
   )
 }
