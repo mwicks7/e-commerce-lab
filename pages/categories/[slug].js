@@ -18,13 +18,12 @@ export async function getServerSideProps({ params }) {
   }
 }
 
-
 export default function Home({ categories, currentCat, productData }) {
   const [products, setProducts] = useState(productData)
   const [sortState, setSortState] = useState(currentCat.sorts[0].value)
   const [filterState, setFilterState] = useState(buildFilterState(currentCat.filters))
   const didMountRef = useRef(false)
-
+  
   function buildFilterState(filters) {
     let newObject = {}
     for (let i = 0; i < filters.length; i++) {
@@ -77,10 +76,14 @@ export default function Home({ categories, currentCat, productData }) {
 
   return (
     <ShopLayout
+      pageSlug={currentCat.slug}
       categories={categories}> 
       <Hero 
         heading="Planets" 
-        image=""
+        image={{
+          url: "/images/products/venus1.jpg",
+          alt: "Venus glowing red"
+        }}
       />
 
       <StickyContainer>
@@ -107,6 +110,7 @@ export default function Home({ categories, currentCat, productData }) {
           </aside>
 
           <div className="grid__main">
+            <h2 className="uppercase">Shop {currentCat.name} ({products.length})</h2>
             <Products 
               products={products}
             />

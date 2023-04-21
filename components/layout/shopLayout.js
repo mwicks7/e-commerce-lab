@@ -4,15 +4,15 @@ import PrimaryNav from '@/components/layout/primaryNav'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function ShopLayout({ children, categories }) {
+export default function ShopLayout({ children, categories, pageSlug }) {
   return (
     <div className={inter.className}>
       <header className="header">
         <div className="logo">
-          <Image src="/next.svg" alt="Logo" width={200} height={100}/>
+          <Image src="/space_land_logo.png" alt="Logo" width={300} height={100}/>
         </div>
 
-        <PrimaryNav categories={categories}/>
+        <PrimaryNav categories={categories} pageSlug={pageSlug}/>
       </header>
 
       <main>

@@ -1,9 +1,12 @@
 .hero {
+  position: relative;
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 400px;
+  height: 600px;
   background-color: black;
+  margin: 0 20px;
+  border-radius: 45px;
+  overflow: hidden;
 
   h1 {
     font-size: 42px;
@@ -11,3 +14,14 @@
   }
 }
 
+  .hero__heading {
+    position: relative;
+    margin-top: 80px;
+    z-index: 2;
+  }
+
+  .hero__image {
+    position: absolute;
+    top: 30%;
+
+  }

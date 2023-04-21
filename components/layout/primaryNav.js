@@ -1,12 +1,19 @@
 import Link from 'next/link'
 
-export default function PrimaryNav() {
+export default function PrimaryNav({ categories, pageSlug }) {
   return (
     <nav className="primary-nav">
       <ul>
-        <li><Link href="/">Planets</Link></li>
-        <li><Link href="/">Galaxies</Link></li>
-        <li><Link href="/">Constellations</Link></li>
+        {categories.map((category, i) => (
+          <li key={`${category.slug}_cat_${i}`}>
+            <Link 
+              className={category.slug === pageSlug ? 'extra-bold' : ''}
+              href={category.slug}
+            >
+              {category.name}
+            </Link>
+          </li>
+        ))}
       </ul>
     </nav>
   )
