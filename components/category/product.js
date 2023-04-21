@@ -18,7 +18,7 @@ export default function Product({ product }) {
           className="product__image" 
           src={activeImage} 
           alt="" 
-          width={250} 
+          width={300} 
           height={300}   
         />
       </Link>

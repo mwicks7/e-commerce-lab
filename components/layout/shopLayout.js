@@ -6,8 +6,8 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function ShopLayout({ children, categories, pageSlug }) {
   return (
-    <div className={inter.className}>
-      <header className="header">
+    <div className={`${inter.className} app`}>
+      <header className="app__header">
         <div className="logo">
           <Image src="/space_land_logo.png" alt="Logo" width={300} height={100}/>
         </div>
@@ -19,8 +19,10 @@ export default function ShopLayout({ children, categories, pageSlug }) {
         {children}
       </main>
 
-      <footer>
-
+      <footer className="app__footer">
+        <div className="container">
+          <h2>Big ol' footer</h2>
+        </div>
       </footer>
     </div>
   )
