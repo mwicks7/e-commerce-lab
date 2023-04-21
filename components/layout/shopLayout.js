@@ -21,7 +21,7 @@ export default function ShopLayout({ children, categories, pageSlug }) {
 
       <footer className="app__footer">
         <div className="container">
-          <h2>Big ol' footer</h2>
+          <h2>Big ol footer</h2>
         </div>
       </footer>
     </div>
