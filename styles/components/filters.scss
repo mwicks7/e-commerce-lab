@@ -14,35 +14,8 @@
 
     .filter__btn-list {
       display: grid;
-      grid-template-columns: repeat(4, auto [col-start]);
+      grid-template-columns: repeat(2, auto [col-start]);
       gap: 10px;
     }
 
-      .filter__btn-item {}
-
-        .filter__btn {
-          position: relative;
-          display: block;
-          border-radius: 3px;
-          background: lightgray;
-          width: 50px;
-          height: 50px;
-
-          &:after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 3px;
-          }
-          
-          &.filter__btn--active:after {
-            top: -4px;
-            right: -4px;
-            bottom: -4px;
-            left: -4px;
-            border: 2px solid black;
-          }
-        }
+    .filter__btn-item {}

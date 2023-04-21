@@ -1,4 +1,5 @@
 import Toggle from '@/components/forms/toggle'
+import CheckboxBtn from '@/components/global/checkboxBtn'
 import { useState } from 'react'
 
 export default function Filters({ fieldsets, onChange }) {
@@ -22,10 +23,11 @@ export default function Filters({ fieldsets, onChange }) {
               <ul className="filter__btn-list">
                 {fs.options.map((option, i) => (
                   <li key={`${option.value}_filter_${i}`} className="filter__btn-item">
-                    <label className="filter__btn">
-                    <input type="checkbox" className="filter__btn" name={`${fs.name}`} value={option.value}/>
-                    {option.label} 
-                    </label>
+                    <CheckboxBtn 
+                      name={fs.name}
+                      label={option.label}
+                      value={option.value}
+                    />
 
                   </li>
                 ))}

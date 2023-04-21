@@ -1,0 +1,30 @@
+
+
+.checkbox-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 50px;
+}
+
+
+.checkbox-btn__check {
+  opacity: 0;
+}
+
+.checkbox-btn__label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 25px;
+  background: lightgray;
+  text-align: center;
+  line-height: 50px;
+}
+
+.checkbox-btn__check:checked + .checkbox-btn__label {
+  background: #2196F3;
+  color: #ffffff;
+}

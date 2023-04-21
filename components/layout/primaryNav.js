@@ -7,7 +7,7 @@ export default function PrimaryNav({ categories, pageSlug }) {
         {categories.map((category, i) => (
           <li key={`${category.slug}_cat_${i}`}>
             <Link 
-              className={category.slug === pageSlug ? 'extra-bold' : ''}
+              className={`primary-nav__link ${category.slug === pageSlug ? 'primary-nav__link--active' : ''}`}
               href={category.slug}
             >
               {category.name}

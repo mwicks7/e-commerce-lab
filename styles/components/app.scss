@@ -5,10 +5,9 @@
 
 .app__footer {
   height: 400px;
-  background: darkgrey;
+  background: lightgrey;
   padding: 50px 0 0;
-  // border-radius: 45px;
-  // margin: 0 25px;
+  margin-top: 100px;
 }
 
 
@@ -24,8 +23,15 @@
     justify-content: center;
   }
 
-  a {
-    display: inline-block;
-    padding: 10px 10px
-  }
 }
+
+.primary-nav__link {
+  display: inline-block;
+  font-weight: 200;
+  padding: 10px 10px
+}
+
+  .primary-nav__link--active {
+    font-weight: 800;
+    text-decoration: underline;
+  }
