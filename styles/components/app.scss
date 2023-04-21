@@ -4,10 +4,13 @@
 .app__header {}
 
 .app__footer {
-  height: 400px;
+  height: 600px;
   background: lightgrey;
+  // background: url('/images/solar_eclipse_bg.jpg');
+  background-size: cover;
   padding: 50px 0 0;
-  margin-top: 100px;
+  margin: 100px 25px 25px;
+  border-radius: 45px;
 }
 
 
