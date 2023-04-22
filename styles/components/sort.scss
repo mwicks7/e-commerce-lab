@@ -1,27 +1,3 @@
 .sort {
-  margin-top: 25px;
-  text-align: left;
-
-  @include mq-med {
-    margin-top: 0;
-    text-align: right;
-  }
-
-  span {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: 800;
-    text-transform: uppercase;
-
-    @include mq-med {
-      display: inline;
-    }
-  }
+  margin-bottom: 35px;
 }
-
-  .sort__input {
-    width: 284px;
-    padding: 15px;
-    border-radius: 25px;
-    border: 1px solid lightgray;
-  }
