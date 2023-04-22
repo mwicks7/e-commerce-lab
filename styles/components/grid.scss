@@ -1,13 +1,54 @@
 .grid {
   display: flex;
+  flex-wrap: wrap;
+
+  @include mq-med {
+    flex-wrap: nowrap;
+  }
 }
 
   .grid__aside {
-    width: 290px;
-    padding-right: 60px;
+    flex: 0 0 100%;
+    
+    @include mq-med {
+      margin-right: 30px;
+      flex: 0 0 200px;
+    }
+
+    @include mq-lrg {
+      flex: 0 0 300px;
+    }
+
+    .grid--aside-right & {
+      margin-right: 0;
+
+      @include mq-med {
+        margin-left: 30px;
+      }
+    }
+
+    &.grid__aside--lrg {
+      @include mq-med {
+        margin-right: 30px;
+        flex: 0 0 350px;
+      }
+  
+      @include mq-lrg {
+        flex: 0 0 450px;
+      }
+    }
   }
 
   .grid__main {
-    width: auto;
+    width: 100%;
     padding-bottom: 100px;
+    flex: 0 0 100%;
+    
+    @include mq-med {
+      flex: 1;
+    }
+
+    // @include mq-lrg {
+    //   width: 75%;
+    // }
   }

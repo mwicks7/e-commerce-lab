@@ -1,9 +1,17 @@
 .products__grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
   column-gap: 10px;
   row-gap: 60px;
   margin-top: 10px;
+  grid-template-columns: 1fr;
+
+  @include mq-small {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @include mq-lrg {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }
 
   .product {

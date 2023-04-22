@@ -5,7 +5,8 @@ import Link from 'next/link'
 
 export default function Product({ product }) {
   const [activeImage, setActiveImage] = useState(product.images[0])
-  
+  const productUrl = `/products/${product.slug}`
+
   const handleSwatchClick = (e) => {
     const url = e.target.style.backgroundImage.match(/"(.*)"/)[1]
     setActiveImage(url)
@@ -13,7 +14,7 @@ export default function Product({ product }) {
 
   return (
     <div className="product">
-      <Link href="#">
+      <Link href={productUrl}>
         <Image 
           className="product__image" 
           src={activeImage} 
@@ -33,7 +34,7 @@ export default function Product({ product }) {
           </li>
         ))}
       </ul>
-      <h3 className="product__name"><Link href="#">{product.name}</Link></h3>
+      <h3 className="product__name"><Link href={productUrl}>{product.name}</Link></h3>
       <div className="product__price">${product.price.toLocaleString("en-US")}.00</div>
       <div className="product__price">Distance from sun: {product.filters.distanceFromSun}</div>
       <div className="product__price">Surface area: {product.filters.surfaceArea}</div>

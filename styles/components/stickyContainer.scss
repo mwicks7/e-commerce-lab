@@ -1,9 +1,14 @@
 .sticky-container {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   padding: 10px;
 
   div {
-    width: 50%;
+    width: 100%;
+    
+    @include mq-med {
+      width: 50%;
+    }
   }
 }
