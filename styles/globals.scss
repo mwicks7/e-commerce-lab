@@ -2,6 +2,18 @@
 // @tailwind components;
 @tailwind utilities;
 
+@mixin mq-small {
+  @media (min-width: 600px) { @content; }
+}
+
+@mixin mq-med {
+  @media (min-width: 769px) { @content; }
+}
+
+@mixin mq-lrg {
+  @media (min-width: 1180px) { @content; }
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -41,16 +53,27 @@ a:hover {
 .extra-bold {
   font-weight: 800;
 }
+
 .container {
   width: 1180px;
   max-width: 100%;
   padding: 0 10px;
   margin: 0 auto;
+
+  @include mq-lrg {
+    padding: 0 25px;
+  }
 }
 
   .container--main {
-    padding-top: 50px;
+    padding-top: 25px;
+    
+    @include mq-small {
+      padding-top: 50px;
+    }
   }
+
+  
 
 @import './components/app.scss';
 @import './components/hero.scss';

@@ -79,7 +79,7 @@ export default function Home({ categories, currentCat, productData }) {
       pageSlug={currentCat.slug}
       categories={categories}> 
       <Hero 
-        heading="Planets" 
+        heading={currentCat.name} 
         image={{
           url: "/images/products/venus1.jpg",
           alt: "Venus glowing red"
@@ -88,10 +88,10 @@ export default function Home({ categories, currentCat, productData }) {
 
       <StickyContainer>
         <Breadcrumbs 
+          currentPageName={currentCat.name}  
           links={[
             {href: '/', text: 'Home'}
           ]}
-          currentPageName="Planets"  
         />
         
         <Sort 
