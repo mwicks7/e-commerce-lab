@@ -11,21 +11,28 @@ import { getProducts, getCategories } from '@/lib/dbProducts'
 export async function getServerSideProps({ params }) {
   const categories = getCategories()
   const currentCat = categories.filter(cat => cat.slug === params.slug)[0]
-  const productData = await getProducts()
-  
+  const defaultFilters = { category: params.slug, includePluto: false }
+  const defaultSort = 'filters.distanceFromSun'
+  const productData = await getProducts(defaultSort, defaultFilters )
+
   return {
-    props: { categories, currentCat, productData },
+    props: { 
+      categories, 
+      currentCat, 
+      productData,
+      key: params.slug
+    },
   }
 }
 
-export default function Home({ categories, currentCat, productData }) {
+export default function Category({ categories, currentCat, productData }) {
   const [products, setProducts] = useState(productData)
   const [sortState, setSortState] = useState(currentCat.sorts[0].value)
   const [filterState, setFilterState] = useState(buildFilterState(currentCat.filters))
   const didMountRef = useRef(false)
   
   function buildFilterState(filters) {
-    let newObject = {}
+    let newObject = { category: currentCat.slug }
     for (let i = 0; i < filters.length; i++) {
       newObject[filters[i].name] = filters[i].value
     }
@@ -59,8 +66,7 @@ export default function Home({ categories, currentCat, productData }) {
 
   const handleFilterChange = useCallback((e) => {
     const name = e.target.name
-    const newFilters = Object.assign({}, filterState)
-  
+    const newFilters = Object.assign({}, filterState, )
     if (name === 'includePluto') {
       newFilters[name] = e.target.checked
     } else {
@@ -70,6 +76,7 @@ export default function Home({ categories, currentCat, productData }) {
         if (cb.checked) newFilters[name].push(cb.value)
       })
     }
+    console.log(newFilters)
 
     setFilterState(newFilters)
   }, [filterState])
