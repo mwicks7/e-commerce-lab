@@ -6,10 +6,11 @@ import Sort from '@/components/category/sort'
 import Products from '@/components/category/products'
 import Breadcrumbs from '@/components/global/breadcrumbs'
 import Filters from '@/components/category/filters'
-import { getProducts, getCategories } from '@/lib/dbProducts'
+import { getCategories } from '@/lib/dbCategories'
+import { getProducts } from '@/lib/dbProducts'
 
 export async function getServerSideProps({ params }) {
-  const categories = getCategories()
+  const categories = await getCategories()
   const currentCat = categories.filter(cat => cat.slug === params.slug)[0]
   const defaultFilters = { category: params.slug, includePluto: false }
   const defaultSort = 'filters.distanceFromSun'
@@ -88,8 +89,8 @@ export default function Category({ categories, currentCat, productData }) {
       <Hero 
         heading={currentCat.name} 
         image={{
-          url: "/images/products/venus1.jpg",
-          alt: "Venus glowing red"
+          url: currentCat.hero.url,
+          alt: currentCat.hero.alt
         }}
       />
 

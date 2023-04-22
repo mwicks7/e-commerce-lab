@@ -17,7 +17,7 @@ export default function ShopLayout({ children, categories, pageSlug }) {
         </header>
       </div>
 
-      <main>
+      <main className="app__main">
         {children}
       </main>
 
