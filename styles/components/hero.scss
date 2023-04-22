@@ -17,7 +17,8 @@
   .hero__image {
     position: absolute;
     max-width: none;
-    top: 30%;
+    width: 100%;
+    top: 120px;
 
     @include mq-med {
     }
