@@ -1,18 +1,18 @@
 import Link from 'next/link'
 
-export default function PrimaryNav({ categories, pageSlug }) {
+export default function PrimaryNav({ categories }) {
   const fauxCategories = [...Array(10).keys()]
 
   return (
     <nav className="primary-nav h3">
       <ul>
-        {categories.map((category, i) => (
-          <li key={`${category.slug}_cat_${i}`}>
+        {categories.nav.map((nav, i) => (
+          <li key={`${nav.slug}_cat_${i}`}>
             <Link 
-              className={`primary-nav__link ${category.slug === pageSlug ? 'primary-nav__link--active' : ''}`}
-              href={category.url}
+              className={`primary-nav__link ${nav.slug === categories.current.slug ? 'primary-nav__link--active' : ''}`}
+              href={nav.url}
             >
-              {category.name}
+              {nav.name}
             </Link>
           </li>
         ))}

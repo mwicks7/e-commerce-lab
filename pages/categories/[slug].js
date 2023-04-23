@@ -9,60 +9,44 @@ import Filters from '@/components/category/filters'
 import { getCategories } from '@/lib/dbCategories'
 import { getProducts } from '@/lib/dbProducts'
 
-export async function getServerSideProps({ params }) {
-  const categories = await getCategories()
-  const currentCat = categories.filter(cat => cat.slug === params.slug)[0]
-  const defaultFilters = { category: params.slug, includePluto: false }
-  const defaultSort = 'filters.distanceFromSun'
-  const productData = await getProducts(defaultSort, defaultFilters )
-
-  return {
-    props: { 
-      categories, 
-      currentCat, 
-      productData,
-      key: params.slug
-    },
-  }
-}
-
-export default function Category({ categories, currentCat, productData }) {
+export default function Category({ categories, productData }) {
+  const category = categories.current
   const [products, setProducts] = useState(productData)
-  const [sortState, setSortState] = useState(currentCat.sorts[0].value)
-  const [filterState, setFilterState] = useState(buildFilterState(currentCat.filters))
+  const [sortState, setSortState] = useState(category.sorts[0].value)
+  const [filterState, setFilterState] = useState(buildFilterState(category.filters))
   const didMountRef = useRef(false)
   
-  function buildFilterState(filters) {
-    let newObject = { category: currentCat.slug }
-    for (let i = 0; i < filters.length; i++) {
-      newObject[filters[i].name] = filters[i].value
-    }
-    return newObject
-  }
   
   useEffect(() => {
     if (!didMountRef.current) {
       didMountRef.current = true
       return
     }
-
-    async function fetchData() {
-      const response = await fetch('/api/products', { 
-        method: 'POST', 
-        body: JSON.stringify({
-          sort: sortState,
-          filters: filterState
-        })
-      })
-  
-      const products = await response.json()
-      
-      setProducts(products)
-    }
-    fetchData()
+    
+    fetchFilteredProducts(sortState, filterState)
   }, [sortState, filterState])
-
-
+  
+  function buildFilterState(filters) {
+    let newObject = { category: category.slug }
+    for (let i = 0; i < filters.length; i++) {
+      newObject[filters[i].name] = filters[i].value
+    }
+    return newObject
+  }
+  
+  const fetchFilteredProducts = async (sortState, filterState) => {
+    const response = await fetch('/api/products', { 
+      method: 'POST', 
+      body: JSON.stringify({
+        sort: sortState,
+        filters: filterState
+      })
+    })
+    const products = await response.json()
+    
+    setProducts(products)
+  }
+  
   const handleSortChange = (e) => setSortState(e.target.value)
 
   const handleFilterChange = useCallback((e) => {
@@ -84,42 +68,41 @@ export default function Category({ categories, currentCat, productData }) {
 
   return (
     <ShopLayout
-      pageSlug={currentCat.slug}
-      categories={categories}> 
+      categories={categories}
+    > 
       <Hero 
-        heading={currentCat.name} 
+        heading={category.name} 
         image={{
-          url: currentCat.hero.url,
-          alt: currentCat.hero.alt
+          url: category.hero.url,
+          alt: category.hero.alt
         }}
       />
 
       <StickyContainer>
         <Breadcrumbs 
-          currentPageName={currentCat.name}  
+          currentPageName={category.name}  
           links={[
             {href: '/', text: 'Home'}
           ]}
         />
-        
       </StickyContainer>
 
       <div className="container container--main">
         <div className="grid">
           <aside className="grid__aside">
             <Sort 
-              options={currentCat.sorts}
+              options={category.sorts}
               onChange={handleSortChange}  
             />
             
             <Filters 
-              fieldsets={currentCat.filters}
+              fieldsets={category.filters}
               onChange={handleFilterChange}
             />
           </aside>
 
           <div className="grid__main">
-            <h2>Shop {currentCat.name} ({products.length})</h2>
+            <h2>Shop {category.name} ({products.length})</h2>
             <Products 
               products={products}
             />
@@ -128,4 +111,26 @@ export default function Category({ categories, currentCat, productData }) {
       </div>
     </ShopLayout>
   )
+}
+
+export async function getServerSideProps({ params }) {
+  // Products
+  const defaultFilters = { category: params.slug, includePluto: false }
+  const defaultSort = 'filters.distanceFromSun'
+  const productData = await getProducts(defaultSort, defaultFilters )
+
+  // Categories
+  const categoriesRes = await getCategories()
+  const categories = {
+    current: categoriesRes.filter(cat => cat.slug === params.slug)[0],
+    nav: categoriesRes
+  }
+
+  return {
+    props: { 
+      categories, 
+      productData,
+      key: params.slug
+    },
+  }
 }

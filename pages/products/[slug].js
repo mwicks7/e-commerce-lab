@@ -7,81 +7,69 @@ import Breadcrumbs from '@/components/global/breadcrumbs'
 import Gallery from '@/components/global/gallery'
 import Product from '@/components/category/product'
 
-export async function getServerSideProps({ params }) {
-  const productData = await getProducts({}, { slug: params.slug }, 1)
-  const categories = await getCategories()
-  const currentCat = categories.filter(cat => cat.slug === productData[0].category)[0]
-  
-  return {
-    props: { 
-      categories, 
-      currentCat, 
-      productData: productData[0],
-      key: params.slug
-    },
-  }
-}
-
-export default function Products({ categories, currentCat, productData }) {
+export default function Products({ categories, product }) {
   const [relatedProducts, setRelatedProducts] = useState([])
 
   useEffect(() => {
-      fetch(
-        '/api/products', { 
-        method: 'POST',
-        body: JSON.stringify({
-          sort: {},
-          filters: {
-            slug: { $not: { $eq: productData.slug} },
-            $or: [
-                { 'filters.type': productData.filters.type },
-                { category: productData.category } 
-            ]
-          },
-          limit: 3
-        })
+      fetchRelatedProducts(product)
+  }, [product])
+
+  const fetchRelatedProducts = (product) => {
+    fetch('/api/products', { 
+      method: 'POST',
+      body: JSON.stringify({
+        sort: {},
+        filters: {
+          slug: { $not: { $eq: product.slug} },
+          $or: [
+              { 'filters.type': product.filters.type },
+              { category: product.category } 
+          ]
+        },
+        limit: 3
       })
-        .then( (response) => response.json() )
-        .then( (data) => setRelatedProducts(data))
-  }, [productData])
+    })
+      .then( (response) => response.json() )
+      .then( (data) => setRelatedProducts(data))
+  }
 
   return (
     <ShopLayout
-      pageSlug={currentCat.slug}
       categories={categories}> 
 
       <StickyContainer>
         <Breadcrumbs 
-          currentPageName={productData.name}  
+          currentPageName={product.name}  
           links={[
             {href: '/', text: 'Home'},
-            {href: `/categories/${currentCat.slug}`, text: currentCat.name}
+            {href: `/categories/${categories.current.slug}`, text: categories.current.name}
           ]}
         />
-        
       </StickyContainer>
 
       <div className="container container--main">
         <section className="grid grid--aside-right">
-
+          
           <div className="grid__main">
             <Gallery
-              images={productData.images}
+              images={product.images}
               height={1000}
               width={1000}
             />
           </div>
           
           <aside className="grid__aside grid__aside--lrg">
-            <h1 className="h1">{productData.name}</h1>
-            <p>${productData.price.toLocaleString("en-US")}</p>
-            <p>{productData.description}</p>
-            {Object.entries(productData.filters).map(detail => (
+            <h1 className="h1">{product.name}</h1>
+            <p>${product.price.toLocaleString("en-US")}</p>
+            <p>{product.description}</p>
+            {Object.entries(product.filters).map(detail => (
               <p key={detail[0]}>
                 <b>{detail[0]}:</b> {detail[1]}
               </p>
             ))}
-            <p><button className="button">Add to cart</button></p>
+            <p>
+              <button onClick={() => alert('Add to cart')} className="button">Add to cart</button>
+            </p>
           </aside>
         </section>
         
@@ -99,4 +87,21 @@ export default function Products({ categories, currentCat, productData }) {
       
     </ShopLayout>
   )
+}
+
+export async function getServerSideProps({ params }) {
+  const productRes = await getProducts({}, { slug: params.slug }, 1)
+  const categoriesRes = await getCategories()
+  const categories = {
+    current: categoriesRes.filter(cat => cat.slug === productRes[0].category)[0],
+    nav: categoriesRes
+  }
+  
+  return {
+    props: { 
+      categories, 
+      product: productRes[0],
+      key: params.slug
+    },
+  }
 }

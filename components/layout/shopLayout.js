@@ -5,7 +5,7 @@ import PrimaryNav from '@/components/layout/primaryNav'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function ShopLayout({ children, categories, pageSlug }) {
+export default function ShopLayout({ children, categories }) {
   const [toggleNav, setToggleNav] = useState(false)
 
 
@@ -50,14 +50,12 @@ export default function ShopLayout({ children, categories, pageSlug }) {
         </div>
         <PrimaryNav 
           categories={categories} 
-          pageSlug={pageSlug}  
         />
       </header>
 
       <div className={`drawer ${toggleNav ? 'drawer--open' : ''}`}>
         <PrimaryNav 
           categories={categories} 
-          pageSlug={pageSlug}  
         />
       </div>
 
