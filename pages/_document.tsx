@@ -1,7 +1,7 @@
 import { Html, Head, Main, NextScript } from 'next/document'
 
 export default function Document() {
-  const siteTitle = 'Space Land'
+  const siteTitle = 'Astro Ecommerce'
   
   return (
     <Html lang="en">
