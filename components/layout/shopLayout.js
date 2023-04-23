@@ -39,7 +39,7 @@ export default function ShopLayout({ children, categories, pageSlug }) {
               onClick={() => alert('Open cart')}
             >
               <Image 
-                src={'/images/shopping_cart.svg'} 
+                src={'/images/local_atm.svg'} 
                 height={30} 
                 width={30} 
                 alt="Open cart"
