@@ -62,6 +62,8 @@ export default function ShopLayout({ children, categories }) {
       <main className="app__main">
         {children}
       </main>
+      
+      <div className="divider--med"></div>
 
       <footer className="app__footer">
         <div className="container">

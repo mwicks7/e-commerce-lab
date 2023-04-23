@@ -2,12 +2,11 @@ import { useState, useCallback, useEffect, useRef } from 'react'
 import { getCategories } from '@/lib/dbCategories'
 import { getProducts } from '@/lib/dbProducts'
 import ShopLayout from '@/components/layout/shopLayout'
-import StickyContainer from '@/components/global/stickyContainer'
 import Breadcrumbs from '@/components/global/breadcrumbs'
 import Gallery from '@/components/global/gallery'
-import Product from '@/components/category/product'
+import ProductsGrid from '@/components/category/productsGrid'
 
-export default function Products({ categories, product }) {
+export default function ProductsPage({ categories, product }) {
   const [relatedProducts, setRelatedProducts] = useState([])
 
   useEffect(() => {
@@ -35,9 +34,9 @@ export default function Products({ categories, product }) {
 
   return (
     <ShopLayout
-      categories={categories}> 
-
-      <StickyContainer>
+      categories={categories}
+    > 
+      <div className="container">
         <Breadcrumbs 
           currentPageName={product.name}  
           links={[
@@ -45,18 +44,19 @@ export default function Products({ categories, product }) {
             {href: `/categories/${categories.current.slug}`, text: categories.current.name}
           ]}
         />
-      </StickyContainer>
+      </div>
 
-      <div className="container container--main">
-        <section className="grid grid--aside-right">
-          
-          <div className="grid__main">
+      <div className="divider--small"></div>
+
+      <div className="container">
+        <div className="grid grid--aside-right">
+          <section className="grid__main">
             <Gallery
               images={product.images}
               height={1000}
               width={1000}
             />
-          </div>
+          </section>
           
           <aside className="grid__aside grid__aside--lrg">
             <h1 className="h1">{product.name}</h1>
@@ -71,20 +71,15 @@ export default function Products({ categories, product }) {
               <button onClick={() => alert('Add to cart')} className="button">Add to cart</button>
             </p>
           </aside>
-        </section>
+        </div>
         
-        <section className="products">
-          <h2>You may also like</h2>
-          <div className="products__grid">
-            {relatedProducts.map(rp => (
-              <Product key={rp._id + 'rp'} product={rp} />
-            ))}
-          </div>
-        </section>
+        <div className="divider--med"></div>
+
+        <ProductsGrid 
+          heading="You may also like"
+          products={relatedProducts}
+        />
       </div>
-      <div className="container container--main">
-      </div>
-      
     </ShopLayout>
   )
 }

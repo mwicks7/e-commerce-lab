@@ -81,30 +81,27 @@ a:hover {
   margin: 0 auto;
 }
 
-  .container--main {
-    padding-top: 25px;
-    
-    @include mq-small {
-      padding-top: 50px;
-    }
-    
-    
-     section {
-      padding-bottom: 50px;
+.divider--small {
+  padding-bottom: 25px;
+  
+  @include mq-small {
+    padding-bottom: 50px;
+  }  
+}
+  
+.divider--med {
+  padding-bottom: 50px;
 
-      @include mq-small {
-        padding-bottom: 100px;
-      }
-      
-    }
+  @include mq-small {
+    padding-bottom: 100px;
   }
+}
 
   
 
 @import './components/app.scss';
 @import './components/primaryNav.scss';
 @import './components/hero.scss';
-@import './components/stickyContainer.scss';
 @import './components/grid.scss';
 @import './components/products.scss';
 @import './components/gallery.scss';

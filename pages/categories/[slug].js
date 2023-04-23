@@ -1,9 +1,8 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
 import ShopLayout from '@/components/layout/shopLayout'
-import StickyContainer from '@/components/global/stickyContainer'
 import Hero from '@/components/global/hero'
 import Sort from '@/components/category/sort'
-import Products from '@/components/category/products'
+import Products from '@/components/category/productsGrid'
 import Breadcrumbs from '@/components/global/breadcrumbs'
 import Filters from '@/components/category/filters'
 import { getCategories } from '@/lib/dbCategories'
@@ -61,8 +60,6 @@ export default function Category({ categories, productData }) {
         if (cb.checked) newFilters[name].push(cb.value)
       })
     }
-    console.log(newFilters)
-
     setFilterState(newFilters)
   }, [filterState])
 
@@ -78,16 +75,18 @@ export default function Category({ categories, productData }) {
         }}
       />
 
-      <StickyContainer>
+      <div className="container">
         <Breadcrumbs 
           currentPageName={category.name}  
           links={[
             {href: '/', text: 'Home'}
           ]}
         />
-      </StickyContainer>
+      </div>
 
-      <div className="container container--main">
+      <div className="divider--small"></div>
+
+      <div className="container">
         <div className="grid">
           <aside className="grid__aside">
             <Sort 
@@ -102,8 +101,8 @@ export default function Category({ categories, productData }) {
           </aside>
 
           <div className="grid__main">
-            <h2>Shop {category.name} ({products.length})</h2>
             <Products 
+              heading={`Shop ${category.name} (${products.length})`}
               products={products}
             />
           </div>
