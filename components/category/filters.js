@@ -5,7 +5,7 @@ import { useState } from 'react'
 export default function Filters({ fieldsets, onChange }) {
   return (
     <section className="filters">
-      <h2>FILTERS</h2>
+      <h2>Filters</h2>
       <form onChange={onChange}>
         {fieldsets.map((fs, i) => (
           <fieldset key={`${fs.type}fs${i}`} className="filter">

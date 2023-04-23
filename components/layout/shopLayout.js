@@ -10,7 +10,7 @@ export default function ShopLayout({ children, categories, pageSlug }) {
       <div className="container">
         <header className="app__header">
           <div className="logo">
-            <Image src="/space_land_logo.png" alt="Logo" width={300} height={100}/>
+            <Image src="/images/astro_logo2.png" alt="Logo" width={140} height={100}/>
           </div>
 
           <PrimaryNav categories={categories} pageSlug={pageSlug}/>
@@ -23,7 +23,7 @@ export default function ShopLayout({ children, categories, pageSlug }) {
 
       <footer className="app__footer">
         <div className="container">
-          <h2>Space Links</h2>
+          <h4>Space Links</h4>
           <ul>
             <li>nasa.gov</li>
             <li>wikipedia</li>
