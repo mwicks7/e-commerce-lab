@@ -1,6 +1,8 @@
 import Link from 'next/link'
 
 export default function PrimaryNav({ categories, pageSlug }) {
+  const fauxCategories = [...Array(10).keys()]
+
   return (
     <nav className="primary-nav">
       <ul>
@@ -14,6 +16,16 @@ export default function PrimaryNav({ categories, pageSlug }) {
             </Link>
           </li>
         ))}
+          <li>
+            <Link className="primary-nav__link" href="/categories/planets">
+              Category3
+            </Link>
+          </li>
+          <li>
+            <Link className="primary-nav__link" href="/categories/planets">
+              Category4
+            </Link>
+          </li>
       </ul>
     </nav>
   )

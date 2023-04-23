@@ -1,7 +1,9 @@
 
 .app {}
 
-.app__header {}
+.app__header {
+  // padding: 0 0 0;
+}
 
 .app__main {
   background: #ffffff;
@@ -18,7 +20,7 @@
 
 .logo {  
   img {
-    margin: 0 auto;
+    margin: 10px auto;
   }
 }
 
@@ -28,15 +30,16 @@
     justify-content: center;
   }
 
-}
+  li {
 
-.primary-nav__link {
-  display: inline-block;
-  font-weight: 200;
-  padding: 10px 10px
-}
-
-  .primary-nav__link--active {
-    font-weight: 800;
-    text-decoration: underline;
   }
+
+  li:nth-child(4),
+  li:nth-child(5) {
+    display: none;
+
+    @include mq-small {
+      display: inline-block;
+    }
+  }
+}

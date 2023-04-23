@@ -34,20 +34,30 @@ body {
   min-height: 950px;
 }
 
-h1, h2, h3 {
-  font-weight: 800;
+h1, h2, h3, h4 {
+  font-weight: 600;
+}
+
+.h1 {
+  font-size: 42px;
+}
+
+h2 {
+  font-size: 22px;
 }
 
 h3 {
-  // font-size: 18px;
+  font-size: 18px;
 }
-.h1 {
-  font-size: 42px;
+
+h4 {
+  font-size: 16px;
 }
 
 p {
   margin: 1em 0;
 }
+
 a:hover {
   text-decoration: underline;
 }
@@ -73,16 +83,26 @@ a:hover {
 
   .container--main {
     padding-top: 25px;
-    padding-bottom: 100px;
     
     @include mq-small {
       padding-top: 50px;
+    }
+    
+    
+     section {
+      padding-bottom: 50px;
+
+      @include mq-small {
+        padding-bottom: 100px;
+      }
+      
     }
   }
 
   
 
 @import './components/app.scss';
+@import './components/primaryNav.scss';
 @import './components/hero.scss';
 @import './components/stickyContainer.scss';
 @import './components/grid.scss';

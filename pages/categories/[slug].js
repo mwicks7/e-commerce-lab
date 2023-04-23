@@ -119,7 +119,7 @@ export default function Category({ categories, currentCat, productData }) {
           </aside>
 
           <div className="grid__main">
-            <h2 className="uppercase">Shop {currentCat.name} ({products.length})</h2>
+            <h2>Shop {currentCat.name} ({products.length})</h2>
             <Products 
               products={products}
             />

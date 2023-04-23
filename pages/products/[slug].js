@@ -22,8 +22,6 @@ export async function getServerSideProps({ params }) {
   }
 }
 
-
-
 export default function Products({ categories, currentCat, productData }) {
   const [relatedProducts, setRelatedProducts] = useState([])
 
@@ -80,16 +78,17 @@ export default function Products({ categories, currentCat, productData }) {
             <p><button className="button">Add to cart</button></p>
           </aside>
         </section>
-      </div>
-      <div className="container container--main">
+        
         <section className="products">
-          <h3>You may also like</h3>
+          <h2>You may also like</h2>
           <div className="products__grid">
             {relatedProducts.map(rp => (
               <Product key={rp._id + 'rp'} product={rp} />
             ))}
           </div>
         </section>
+      </div>
+      <div className="container container--main">
       </div>
       
     </ShopLayout>
