@@ -31,7 +31,10 @@ export default function Products({ categories, currentCat, productData }) {
         method: 'POST',
         body: JSON.stringify({
           sort: {},
-          filters: { category: productData.category },
+          filters: { 
+            category: productData.category, 
+            slug: { $not: { $eq: productData.slug} } 
+          },
           limit: 3
         })
       })
