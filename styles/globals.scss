@@ -38,6 +38,16 @@ h1, h2, h3 {
   font-weight: 800;
 }
 
+h3 {
+  // font-size: 18px;
+}
+.h1 {
+  font-size: 42px;
+}
+
+p {
+  margin: 1em 0;
+}
 a:hover {
   text-decoration: underline;
 }
@@ -63,6 +73,7 @@ a:hover {
 
   .container--main {
     padding-top: 25px;
+    padding-bottom: 100px;
     
     @include mq-small {
       padding-top: 50px;
@@ -76,8 +87,11 @@ a:hover {
 @import './components/stickyContainer.scss';
 @import './components/grid.scss';
 @import './components/products.scss';
+@import './components/gallery.scss';
 @import './components/sort.scss';
 @import './components/filters.scss';
 @import './components/toggle.scss';
 @import './components/breadcrumbs.scss';
 @import './components/checkboxBtn.scss';
+@import './components/button.scss';
+@import './components/select.scss';

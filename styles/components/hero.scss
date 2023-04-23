@@ -4,16 +4,10 @@
   justify-content: center;
   height: 600px;
   background-color: black;
-  margin: 10px 0;
   overflow: hidden;
-
-  @include mq-lrg {
-    margin: 10px 0;
-  }
 }
 
   .hero__heading {
-    font-size: 42px;
     color: white;
     position: relative;
     margin-top: 80px;
@@ -23,7 +17,8 @@
   .hero__image {
     position: absolute;
     max-width: none;
-    top: 30%;
+    width: 1300px;
+    top: 120px;
 
     @include mq-med {
     }

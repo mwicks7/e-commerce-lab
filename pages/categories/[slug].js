@@ -102,15 +102,16 @@ export default function Category({ categories, currentCat, productData }) {
           ]}
         />
         
-        <Sort 
-          options={currentCat.sorts}
-          onChange={handleSortChange}  
-        />
       </StickyContainer>
 
       <div className="container container--main">
         <div className="grid">
           <aside className="grid__aside">
+            <Sort 
+              options={currentCat.sorts}
+              onChange={handleSortChange}  
+            />
+            
             <Filters 
               fieldsets={currentCat.filters}
               onChange={handleFilterChange}
