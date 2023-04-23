@@ -1,11 +1,20 @@
 .grid {
   display: flex;
   flex-wrap: wrap;
+  align-content: center;
 
   @include mq-med {
     flex-wrap: nowrap;
   }
 }
+
+  .grid__col-4 {
+    width: 33.33%
+  }
+
+  .grid__col-6 {
+    width: 50%
+  }
 
   .grid__aside {
     flex: 0 0 100%;
