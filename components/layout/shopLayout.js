@@ -1,5 +1,6 @@
 import { Inter } from 'next/font/google'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useState } from 'react'
 import PrimaryNav from '@/components/layout/primaryNav'
 
@@ -30,7 +31,9 @@ export default function ShopLayout({ children, categories }) {
 
             <div className="flex__col--6">
               <div className="logo">
-                <Image src="/images/astro_logo2.png" alt="Logo" width={140} height={34}/>
+                <Link href="/">
+                  <Image src="/images/astro_logo2.png" alt="Logo" width={140} height={34}/>
+                </Link>
               </div>
             </div>
             
