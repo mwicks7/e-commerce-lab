@@ -1,6 +1,6 @@
 @tailwind base;
 // @tailwind components;
-@tailwind utilities;
+// @tailwind utilities;
 
 @mixin mq-small {
   @media (min-width: 600px) { @content; }
@@ -60,7 +60,7 @@ a:hover {
   text-decoration: underline;
 }
 
-.align-right {
+.text--align-right {
   text-align: right;
 }
 

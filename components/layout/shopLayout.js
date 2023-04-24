@@ -14,7 +14,7 @@ export default function ShopLayout({ children, categories }) {
       <header className="header">
         <div className="container">
           <div className="flex">
-            <div className="flex__col--3">
+            <div className="flex__col--3 flex__col--align-center">
               <button 
                 className="app__menu-btn app__menu-btn--nav"
                 onClick={() => setToggleNav((prev) => !prev)}
@@ -34,7 +34,7 @@ export default function ShopLayout({ children, categories }) {
               </div>
             </div>
             
-            <div className="flex__col--3 align-right">
+            <div className="flex__col--3 flex__col--align-center text--align-right ">
               <button 
                 className="app__menu-btn app__menu-btn--cart"
                 onClick={() => alert('Open cart')}

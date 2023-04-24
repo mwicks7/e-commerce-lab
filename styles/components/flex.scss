@@ -1,12 +1,15 @@
 .flex {
   display: flex;
   flex-wrap: wrap;
-  align-content: center;
 
   @include mq-med {
     flex-wrap: nowrap;
   }
 }
+
+  .flex__col--align-center {
+    align-self: center;
+  }
 
   .flex__col--3 {
     width: 25%;
