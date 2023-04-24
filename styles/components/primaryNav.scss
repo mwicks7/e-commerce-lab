@@ -1,9 +1,37 @@
-.primary-nav__link {
-  display: inline-block;
-  padding: 10px 20px;
+.primary-nav {
 
+
+  .header & {
+    display: none;
+        
+    @include mq-small {
+      display: block;
+    }
+
+    ul {
+      display: flex;
+      justify-content: center;
+    }
+  }
 }
 
-  .primary-nav__link--active {
-    font-weight: 600;
+  .primary-nav__link {
+    display: inline-block;
+    margin: 10px 0;
+    padding-bottom: 2px;
+    // text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 400;
+
+    @include mq-small {
+      margin: 5px 10px;
+    }
   }
+
+    .primary-nav__link:hover,
+    .primary-nav__link--active {
+      text-decoration: none;
+      border-bottom: 2px solid black;
+      padding-bottom: 0;
+    }
+    

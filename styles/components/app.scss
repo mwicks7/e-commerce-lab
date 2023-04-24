@@ -1,45 +1,53 @@
 
 .app {}
 
-.app__header {
-  // padding: 0 0 0;
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  z-index: 10;
+  background: #e7e7e7;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  
+  @include mq-small {
+    position: relative;
+    height: 90px;
+    box-shadow: none;
+  }
 }
 
-.app__main {
-  background: #ffffff;
+  .logo {  
+    img {
+      margin: 10px auto;
+    }
+  }
+
+.main {
+  padding-top: 50px;
+  
+  @include mq-small {
+    padding-top: 0;
+  }
 }
 
-.app__footer {
+.footer {
   height: 600px;
   background: lightgrey;
   background-size: cover;
-  padding: 50px 0 0;
-  margin: 100px 0 0;
 }
 
 
-.logo {  
-  img {
-    margin: 10px auto;
-  }
-}
-
-.primary-nav {
-  ul {
-    display: flex;
-    justify-content: center;
-  }
-
-  li {
-
-  }
-
-  li:nth-child(4),
-  li:nth-child(5) {
-    display: none;
-
+.app__menu-btn {
+  padding: 10px;
+  line-height: 40px;
+  display: inline-block;
+  
+  
+  &.app__menu-btn--nav {
     @include mq-small {
-      display: inline-block;
+      display: none;
     }
   }
 }

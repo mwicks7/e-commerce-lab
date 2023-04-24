@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export default function Breadcrumbs({links=[], currentPageName}) {
   return (
-    <div className="breadcrumbs">
+    <section className="breadcrumbs">
       {links.map((link, i) => (
         <span key={'crumb_' + i}>
           <Link 
@@ -15,6 +15,6 @@ export default function Breadcrumbs({links=[], currentPageName}) {
         </span>
       ))}
       {currentPageName}
-    </div>
+    </section>
   )
 }

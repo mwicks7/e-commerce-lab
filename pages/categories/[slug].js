@@ -1,68 +1,51 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
 import ShopLayout from '@/components/layout/shopLayout'
-import StickyContainer from '@/components/global/stickyContainer'
 import Hero from '@/components/global/hero'
 import Sort from '@/components/category/sort'
-import Products from '@/components/category/products'
+import Products from '@/components/category/productsGrid'
 import Breadcrumbs from '@/components/global/breadcrumbs'
 import Filters from '@/components/category/filters'
 import { getCategories } from '@/lib/dbCategories'
 import { getProducts } from '@/lib/dbProducts'
 
-export async function getServerSideProps({ params }) {
-  const categories = await getCategories()
-  const currentCat = categories.filter(cat => cat.slug === params.slug)[0]
-  const defaultFilters = { category: params.slug, includePluto: false }
-  const defaultSort = 'filters.distanceFromSun'
-  const productData = await getProducts(defaultSort, defaultFilters )
-
-  return {
-    props: { 
-      categories, 
-      currentCat, 
-      productData,
-      key: params.slug
-    },
-  }
-}
-
-export default function Category({ categories, currentCat, productData }) {
+export default function Category({ categories, productData }) {
+  const category = categories.current
   const [products, setProducts] = useState(productData)
-  const [sortState, setSortState] = useState(currentCat.sorts[0].value)
-  const [filterState, setFilterState] = useState(buildFilterState(currentCat.filters))
+  const [sortState, setSortState] = useState(category.sorts[0].value)
+  const [filterState, setFilterState] = useState(buildFilterState(category.filters))
   const didMountRef = useRef(false)
   
-  function buildFilterState(filters) {
-    let newObject = { category: currentCat.slug }
-    for (let i = 0; i < filters.length; i++) {
-      newObject[filters[i].name] = filters[i].value
-    }
-    return newObject
-  }
   
   useEffect(() => {
     if (!didMountRef.current) {
       didMountRef.current = true
       return
     }
-
-    async function fetchData() {
-      const response = await fetch('/api/products', { 
-        method: 'POST', 
-        body: JSON.stringify({
-          sort: sortState,
-          filters: filterState
-        })
-      })
-  
-      const products = await response.json()
-      
-      setProducts(products)
-    }
-    fetchData()
+    
+    fetchFilteredProducts(sortState, filterState)
   }, [sortState, filterState])
-
-
+  
+  function buildFilterState(filters) {
+    let newObject = { category: category.slug }
+    for (let i = 0; i < filters.length; i++) {
+      newObject[filters[i].name] = filters[i].value
+    }
+    return newObject
+  }
+  
+  const fetchFilteredProducts = async (sortState, filterState) => {
+    const response = await fetch('/api/products', { 
+      method: 'POST', 
+      body: JSON.stringify({
+        sort: sortState,
+        filters: filterState
+      })
+    })
+    const products = await response.json()
+    
+    setProducts(products)
+  }
+  
   const handleSortChange = (e) => setSortState(e.target.value)
 
   const handleFilterChange = useCallback((e) => {
@@ -77,55 +60,72 @@ export default function Category({ categories, currentCat, productData }) {
         if (cb.checked) newFilters[name].push(cb.value)
       })
     }
-    console.log(newFilters)
-
     setFilterState(newFilters)
   }, [filterState])
 
   return (
     <ShopLayout
-      pageSlug={currentCat.slug}
-      categories={categories}> 
+      categories={categories}
+    > 
       <Hero 
-        heading={currentCat.name} 
+        heading={category.name} 
         image={{
-          url: currentCat.hero.url,
-          alt: currentCat.hero.alt
+          url: category.hero.url,
+          alt: category.hero.alt
         }}
       />
 
-      <StickyContainer>
+      <div className="container">
         <Breadcrumbs 
-          currentPageName={currentCat.name}  
+          currentPageName={category.name}  
           links={[
             {href: '/', text: 'Home'}
           ]}
         />
-        
-      </StickyContainer>
+      </div>
 
-      <div className="container container--main">
-        <div className="grid">
-          <aside className="grid__aside">
-            <Sort 
-              options={currentCat.sorts}
-              onChange={handleSortChange}  
-            />
-            
-            <Filters 
-              fieldsets={currentCat.filters}
-              onChange={handleFilterChange}
-            />
-          </aside>
+      <div className="container container--padded flex">
+        <aside className="flex__col--left-aside">
+          <Sort 
+            options={category.sorts}
+            onChange={handleSortChange}  
+          />
+          
+          <Filters 
+            fieldsets={category.filters}
+            onChange={handleFilterChange}
+          />
+        </aside>
 
-          <div className="grid__main">
-            <h2>Shop {currentCat.name} ({products.length})</h2>
-            <Products 
-              products={products}
-            />
-          </div>
+        <div className="flex__col--fluid">
+          <Products 
+            heading={`Shop ${category.name} (${products.length})`}
+            products={products}
+          />
         </div>
       </div>
     </ShopLayout>
   )
+}
+
+export async function getServerSideProps({ params }) {
+  // Products
+  const defaultFilters = { category: params.slug, includePluto: false }
+  const defaultSort = 'filters.distanceFromSun'
+  const productData = await getProducts(defaultSort, defaultFilters )
+
+  // Categories
+  const categoriesRes = await getCategories()
+  const categories = {
+    current: categoriesRes.filter(cat => cat.slug === params.slug)[0],
+    nav: categoriesRes
+  }
+
+  return {
+    props: { 
+      categories, 
+      productData,
+      key: params.slug
+    },
+  }
 }
