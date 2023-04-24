@@ -1,7 +1,7 @@
 
 .app {}
 
-.app__header {
+.header {
   position: fixed;
   top: 0;
   left: 0;
@@ -9,15 +9,21 @@
   height: 50px;
   z-index: 10;
   background: #e7e7e7;
-
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  
   @include mq-small {
     position: relative;
-    height: 100px;
+    height: 90px;
   }
 }
 
-.app__main {
-  background: #ffffff;
+  .logo {  
+    img {
+      margin: 10px auto;
+    }
+  }
+
+.main {
   padding-top: 50px;
   
   @include mq-small {
@@ -25,20 +31,12 @@
   }
 }
 
-.app__footer {
+.footer {
   height: 600px;
   background: lightgrey;
   background-size: cover;
-  padding: 50px 0 0;
-  margin: 100px 0 0;
 }
 
-
-.logo {  
-  img {
-    margin: 10px auto;
-  }
-}
 
 .app__menu-btn {
   padding: 10px;

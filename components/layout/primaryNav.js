@@ -4,7 +4,7 @@ export default function PrimaryNav({ categories }) {
   const fauxCategories = [...Array(10).keys()]
 
   return (
-    <nav className="primary-nav h3">
+    <nav className="primary-nav">
       <ul>
         {categories.nav.map((nav, i) => (
           <li key={`${nav.slug}_cat_${i}`}>

@@ -7,7 +7,7 @@
 }
 
 @mixin mq-med {
-  @media (min-width: 769px) { @content; }
+  @media (min-width: 768px) { @content; }
 }
 
 @mixin mq-lrg {
@@ -30,19 +30,17 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: #e7e7e7;
-  min-height: 950px;
 }
 
 h1, h2, h3, h4 {
   font-weight: 600;
 }
 
-.h1 {
+h1, .h1 {
   font-size: 42px;
 }
 
-h2 {
+h2, .h2 {
   font-size: 22px;
 }
 
@@ -50,11 +48,11 @@ h3, .h3 {
   font-size: 18px;
 }
 
-h4 {
+h4, .h4 {
   font-size: 16px;
 }
 
-p {
+p, .p {
   margin: 1em 0;
 }
 
@@ -81,7 +79,15 @@ a:hover {
   margin: 0 auto;
 }
 
-.divider--small {
+  .container--padded {
+    padding: 25px 15px;
+
+    @include mq-small {
+      padding: 50px 15px;
+    }
+  }
+
+.spacer--small {
   padding-bottom: 25px;
   
   @include mq-small {
@@ -89,11 +95,19 @@ a:hover {
   }  
 }
   
-.divider--med {
+.spacer--med {
   padding-bottom: 50px;
 
   @include mq-small {
     padding-bottom: 100px;
+  }
+}
+
+.spacer--lrg {
+  padding-bottom: 75px;
+
+  @include mq-small {
+    padding-bottom: 150px;
   }
 }
 
@@ -102,7 +116,7 @@ a:hover {
 @import './components/app.scss';
 @import './components/primaryNav.scss';
 @import './components/hero.scss';
-@import './components/grid.scss';
+@import './components/flex.scss';
 @import './components/products.scss';
 @import './components/gallery.scss';
 @import './components/sort.scss';

@@ -46,11 +46,9 @@ export default function ProductsPage({ categories, product }) {
         />
       </div>
 
-      <div className="divider--small"></div>
-
-      <div className="container">
-        <div className="grid grid--aside-right">
-          <section className="grid__main">
+      <div className="container container--padded">
+        <div className="flex">
+          <section className="flex__col--fluid">
             <Gallery
               images={product.images}
               height={1000}
@@ -58,28 +56,36 @@ export default function ProductsPage({ categories, product }) {
             />
           </section>
           
-          <aside className="grid__aside grid__aside--lrg">
+          <section className="flex__col--right-aside">
             <h1 className="h1">{product.name}</h1>
             <p>${product.price.toLocaleString("en-US")}</p>
             <p>{product.description}</p>
+
             {Object.entries(product.filters).map(detail => (
               <p key={detail[0]}>
                 <b>{detail[0]}:</b> {detail[1]}
               </p>
             ))}
-            <p>
-              <button onClick={() => alert('Add to cart')} className="button">Add to cart</button>
-            </p>
-          </aside>
-        </div>
-        
-        <div className="divider--med"></div>
 
+            <div className="p">
+              <button 
+                onClick={() => alert('Add to cart')} 
+                className="button"
+              >
+                Add to cart
+              </button>
+            </div>
+          </section>
+        </div>  
+      </div>
+
+      <div className="container container--padded">
         <ProductsGrid 
           heading="You may also like"
           products={relatedProducts}
         />
       </div>
+      
     </ShopLayout>
   )
 }

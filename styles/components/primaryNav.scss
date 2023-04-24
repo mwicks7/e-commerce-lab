@@ -1,7 +1,7 @@
 .primary-nav {
 
 
-  .app__header & {
+  .header & {
     display: none;
         
     @include mq-small {
@@ -17,9 +17,17 @@
 
   .primary-nav__link {
     display: inline-block;
-    padding: 10px 20px;
+    margin: 5px 10px;
+    padding-bottom: 2px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
   }
 
+    .primary-nav__link:hover,
     .primary-nav__link--active {
-      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 2px solid black;
+      padding-bottom: 0;
     }
+    

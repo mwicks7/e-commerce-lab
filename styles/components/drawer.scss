@@ -1,13 +1,13 @@
 .drawer {
   position: fixed;
-  top: 50px;
-  margin-left: -350px;
+  z-index: 10;
   top: 50px;
   bottom: 0;
-  background-color: #e7e7e7;
+  margin-left: -350px;
   width: 350px;
   max-width: 100%;
-  z-index: 10;
+  background-color: #e7e7e7;
+  padding: 25px 0;
   transition: margin-left .5s ease;
 }
 

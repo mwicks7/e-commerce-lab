@@ -1,0 +1,55 @@
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+
+  @include mq-med {
+    flex-wrap: nowrap;
+  }
+}
+
+  .flex__col--3 {
+    width: 25%;
+  }
+
+  .flex__col--4 {
+    width: 33.33%;
+  }
+
+  .flex__col--6 {
+    width: 50%;
+  }
+
+  .flex__col--fluid {
+    width: 100%;
+    
+    @include mq-med {
+      flex: 1;
+    }
+  }
+
+  .flex__col--left-aside {
+    width: 100%;
+    
+    @include mq-med {
+      margin-right: 30px;
+      width: 200px;
+    }
+
+    @include mq-lrg {
+      width: 300px;
+    }
+  }
+  
+  .flex__col--right-aside {
+    width: 100%;
+
+    @include mq-med {
+      margin-left: 30px;
+      width: 350px;
+    }
+
+    @include mq-lrg {
+      width: 450px;
+    }
+  }

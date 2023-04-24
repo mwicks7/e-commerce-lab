@@ -84,28 +84,24 @@ export default function Category({ categories, productData }) {
         />
       </div>
 
-      <div className="divider--small"></div>
+      <div className="container container--padded flex">
+        <aside className="flex__col--left-aside">
+          <Sort 
+            options={category.sorts}
+            onChange={handleSortChange}  
+          />
+          
+          <Filters 
+            fieldsets={category.filters}
+            onChange={handleFilterChange}
+          />
+        </aside>
 
-      <div className="container">
-        <div className="grid">
-          <aside className="grid__aside">
-            <Sort 
-              options={category.sorts}
-              onChange={handleSortChange}  
-            />
-            
-            <Filters 
-              fieldsets={category.filters}
-              onChange={handleFilterChange}
-            />
-          </aside>
-
-          <div className="grid__main">
-            <Products 
-              heading={`Shop ${category.name} (${products.length})`}
-              products={products}
-            />
-          </div>
+        <div className="flex__col--fluid">
+          <Products 
+            heading={`Shop ${category.name} (${products.length})`}
+            products={products}
+          />
         </div>
       </div>
     </ShopLayout>
