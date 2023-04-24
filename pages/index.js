@@ -11,10 +11,10 @@ export default function HomePage({ categories, planetProducts, galaxyProducts })
       categories={categories}
     > 
       <Hero 
-        heading="Home" 
+        heading="Welcome" 
         image={{
           url: '/images/products/earth1.jpg', // page.hero.url
-          alt: '' // page.hero.alt
+          alt: 'Earth seen from space' // page.hero.alt
         }}
       />
 

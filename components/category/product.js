@@ -4,17 +4,10 @@ import Link from 'next/link'
 import Gallery from '@/components/global/gallery'
 
 export default function Product({ product }) {
-  const [activeImage, setActiveImage] = useState(product.images[0])
   const productUrl = `/products/${product.slug}`
-
-  const handleSwatchClick = (e) => {
-    const url = e.target.style.backgroundImage.match(/"(.*)"/)[1]
-    setActiveImage(url)
-  }
   
   return (
-    <div className="product">
-      
+    <article className="product">
       <Gallery 
         images={product.images}
         url={productUrl}
@@ -27,6 +20,6 @@ export default function Product({ product }) {
       <div className="product__price">Distance from sun: {product.filters.distanceFromSun}</div>
       <div className="product__price">Surface area: {product.filters.surfaceArea}</div>
       <div className="product__price">Type: {product.filters.type}</div>
-    </div>
+    </article>
   )
 }
