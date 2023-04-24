@@ -17,11 +17,15 @@
 
   .primary-nav__link {
     display: inline-block;
-    margin: 5px 10px;
+    margin: 10px 0;
     padding-bottom: 2px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: bold;
+    // text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 400;
+
+    @include mq-small {
+      margin: 5px 10px;
+    }
   }
 
     .primary-nav__link:hover,
