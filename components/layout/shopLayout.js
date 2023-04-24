@@ -1,5 +1,6 @@
 import { Inter } from 'next/font/google'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useState } from 'react'
 import PrimaryNav from '@/components/layout/primaryNav'
 
@@ -14,7 +15,7 @@ export default function ShopLayout({ children, categories }) {
       <header className="header">
         <div className="container">
           <div className="flex">
-            <div className="flex__col--3">
+            <div className="flex__col--3 flex__col--align-center">
               <button 
                 className="app__menu-btn app__menu-btn--nav"
                 onClick={() => setToggleNav((prev) => !prev)}
@@ -30,11 +31,13 @@ export default function ShopLayout({ children, categories }) {
 
             <div className="flex__col--6">
               <div className="logo">
-                <Image src="/images/astro_logo2.png" alt="Logo" width={140} height={34}/>
+                <Link href="/">
+                  <Image src="/images/astro_logo2.png" alt="Logo" width={140} height={34}/>
+                </Link>
               </div>
             </div>
             
-            <div className="flex__col--3 align-right">
+            <div className="flex__col--3 flex__col--align-center text--align-right ">
               <button 
                 className="app__menu-btn app__menu-btn--cart"
                 onClick={() => alert('Open cart')}

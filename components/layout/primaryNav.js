@@ -1,8 +1,6 @@
 import Link from 'next/link'
 
 export default function PrimaryNav({ categories }) {
-  const fauxCategories = [...Array(10).keys()]
-
   return (
     <nav className="primary-nav">
       <ul>
@@ -24,6 +22,16 @@ export default function PrimaryNav({ categories }) {
           <li>
             <Link className="primary-nav__link" href="/categories/planets">
               Category4
+            </Link>
+          </li>
+          <li>
+            <Link className="primary-nav__link" href="/categories/planets">
+              Category5
+            </Link>
+          </li>
+          <li>
+            <Link className="primary-nav__link" href="/categories/planets">
+              Category6
             </Link>
           </li>
       </ul>

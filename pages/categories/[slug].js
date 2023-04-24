@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect, useRef } from 'react'
 import ShopLayout from '@/components/layout/shopLayout'
 import Hero from '@/components/global/hero'
 import Sort from '@/components/category/sort'
-import Products from '@/components/category/productsGrid'
+import ProductsGrid from '@/components/category/productsGrid'
 import Breadcrumbs from '@/components/global/breadcrumbs'
 import Filters from '@/components/category/filters'
 import { getCategories } from '@/lib/dbCategories'
@@ -98,7 +98,7 @@ export default function Category({ categories, productData }) {
         </aside>
 
         <div className="flex__col--fluid">
-          <Products 
+          <ProductsGrid 
             heading={`Shop ${category.name} (${products.length})`}
             products={products}
           />
