@@ -7,8 +7,27 @@
   }
 }
 
+  .flex--padded {
+
+    .flex__col {
+      padding: 7.5px;
+
+      &:first-of-type {
+        padding-left: 0;
+      }
+
+      &:last-of-type {
+        padding-right: 0;
+      }
+    }
+  }
+
   .flex__col--align-center {
     align-self: center;
+  }
+
+  .flex__col--2 {
+    width: 20%;
   }
 
   .flex__col--3 {
@@ -21,6 +40,10 @@
 
   .flex__col--6 {
     width: 50%;
+  }
+
+  .flex__col--8 {
+    width: 60%;
   }
 
   .flex__col--fluid {
