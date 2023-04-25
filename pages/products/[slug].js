@@ -5,9 +5,11 @@ import ShopLayout from '@/components/layout/shopLayout'
 import Breadcrumbs from '@/components/global/breadcrumbs'
 import Gallery from '@/components/global/gallery'
 import ProductsGrid from '@/components/category/productsGrid'
+import { mapFilters } from '@/lib/filterMap'
 
 export default function ProductsPage({ categories, product }) {
   const [relatedProducts, setRelatedProducts] = useState([])
+  const details = mapFilters(product, 'preview')
 
   useEffect(() => {
       fetchRelatedProducts(product)
@@ -61,9 +63,9 @@ export default function ProductsPage({ categories, product }) {
             <p>${product.price.toLocaleString("en-US")}</p>
             <p>{product.description}</p>
 
-            {Object.entries(product.filters).map(detail => (
-              <p key={detail[0]}>
-                <b>{detail[0]}:</b> {detail[1]}
+            {details.map(d => (
+              <p key={d.name + d.value + '_detail'}>
+                <b>{d.label}</b>: {d.value} {d.units}
               </p>
             ))}
 
