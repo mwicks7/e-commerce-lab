@@ -76,6 +76,8 @@ export default function ShopLayout({ children, categories }) {
           <ul>
             <li>nasa.gov</li>
             <li>wikipedia</li>
+            <li>space.com</li>
+            <li>https://esahubble.org/</li>
           </ul>
         </div>
       </footer>
