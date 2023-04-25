@@ -17,7 +17,7 @@ export default function ProductsPage({ categories, product }) {
     fetch('/api/products', { 
       method: 'POST',
       body: JSON.stringify({
-        sort: {},
+        sort: '',
         filters: {
           slug: { $not: { $eq: product.slug} },
           $or: [
