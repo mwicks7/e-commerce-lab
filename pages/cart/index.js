@@ -10,19 +10,18 @@ export default function CartPage({ categories, products }) {
       categories={categories}
     > 
       <div className="container container--padded">
-        <h1>Cart</h1>
-        <div className="flex">
-          <div className="flex__col--left-aside">
-            <section>
-              <p>Subtotal: </p>
-              <p>Tax: </p>
-              <p>Total: </p>
-              <button className="button">Checkout</button>
-            </section>
-            <div className="spacer--small"></div>
-          </div>
-          <div className="flex__col--fluid">
-            <section>
+        <section>
+          <h1>Cart</h1>
+          <div className="flex">
+            <div className="flex__col--left-aside">
+                <p>Subtotal: </p>
+                <p>Tax: </p>
+                <p>Total: </p>
+                <button className="button">Checkout</button>
+              <div className="spacer--small"></div>
+            </div>
+            
+            <div className="flex__col--fluid">
               <h2>Items (3)</h2>
               <ul className="cart-items">
                 {products.map(product => (
@@ -40,9 +39,9 @@ export default function CartPage({ categories, products }) {
                   </li>
                 ))}
               </ul>
-            </section>
+            </div>
           </div>
-        </div>
+        </section>
       </div>
 
     </ShopLayout>
