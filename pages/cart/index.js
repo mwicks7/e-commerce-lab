@@ -1,10 +1,12 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import ShopLayout from '@/components/layout/shopLayout'
+import CartItems from '@/components/cart/cartItems'
+import CartSubtotal from '@/components/cart/cartSubtotal'
 import { getCategories } from '@/lib/dbCategories'
 import { getProducts } from '@/lib/dbProducts'
 
-export default function CartPage({ categories, products }) {
+export default function CartPage({ categories, cartProducts }) {
   return (
     <ShopLayout
       categories={categories}
@@ -14,31 +16,11 @@ export default function CartPage({ categories, products }) {
           <h1>Cart</h1>
           <div className="flex">
             <div className="flex__col--left-aside">
-                <p>Subtotal: </p>
-                <p>Tax: </p>
-                <p>Total: </p>
-                <button className="button">Checkout</button>
-              <div className="spacer--small"></div>
+              <CartSubtotal products={cartProducts}/>
             </div>
             
             <div className="flex__col--fluid">
-              <h2>Items (3)</h2>
-              <ul className="cart-items">
-                {products.map(product => (
-                  <li key={product.id + "_cart-item"} className="flex flex--padded">
-                    <div className="flex__col flex__col--2">
-                      <Image src={product.images[0]} height={150} width={150} alt={product.name} />
-                    </div>
-                    <div className="flex__col flex__col--8">
-                      <h3>{product.name}</h3>
-                      ${product.price.toLocaleString("en-US")}.00
-                    </div>
-                    <div className="flex__col flex__col--2 text--align-right">
-                      <button><Image src="/images/delete.svg" height={25} width={25} alt="Remove item from cart"/></button>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+              <CartItems products={cartProducts} />
             </div>
           </div>
         </section>
@@ -50,9 +32,7 @@ export default function CartPage({ categories, products }) {
 
 export async function getServerSideProps({ params }) {
   // Products
-  const defaultFilters = {}
-  const defaultSort = 'filters.distanceFromSun'
-  const products = await getProducts(defaultSort, { category: 'planets', includePluto: false }, 3)
+  const cartProducts = await getProducts('', {}, 3)
 
   // Categories
   const categoriesRes = await getCategories()
@@ -64,7 +44,7 @@ export async function getServerSideProps({ params }) {
   return {
     props: { 
       categories, 
-      products,
+      cartProducts,
       key: 'cart_page'
     },
   }
