@@ -2,10 +2,12 @@ import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Gallery from '@/components/global/gallery'
+import { mapFilters } from '@/lib/filterMap'
 
 export default function Product({ product }) {
   const productUrl = `/products/${product.slug}`
-  
+  const details = mapFilters(product, 'preview')
+
   return (
     <article className="product">
       <Gallery 
@@ -17,9 +19,11 @@ export default function Product({ product }) {
 
       <h3 className="product__name"><Link href={productUrl}>{product.name}</Link></h3>
       <div className="product__price">${product.price.toLocaleString("en-US")}.00</div>
-      <div className="product__price">Distance from sun: {product.filters.distanceFromSun}</div>
-      <div className="product__price">Surface area: {product.filters.surfaceArea}</div>
-      <div className="product__price">Type: {product.filters.type}</div>
+      {details.map(d => (
+        <div key={d.name + d.value + '_detail'} className="product__detail">
+          {d.label}: {d.value} {d.units}
+        </div>
+      ))}
     </article>
   )
 }
