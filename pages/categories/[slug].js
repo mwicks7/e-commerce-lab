@@ -109,17 +109,18 @@ export default function Category({ categories, productData }) {
 }
 
 export async function getServerSideProps({ params }) {
-  // Products
-  const defaultFilters = { category: params.slug, includePluto: false }
-  const defaultSort = 'filters.distanceFromSun'
-  const productData = await getProducts(defaultSort, defaultFilters )
-
   // Categories
   const categoriesRes = await getCategories()
+  const currentCategory = categoriesRes.filter(cat => cat.slug === params.slug)[0]
   const categories = {
-    current: categoriesRes.filter(cat => cat.slug === params.slug)[0],
+    current: currentCategory,
     nav: categoriesRes
   }
+
+  // Products
+  const defaultFilters = { category: params.slug, includePluto: false }
+  const defaultSort = currentCategory.sorts[0].value
+  const productData = await getProducts(defaultSort, defaultFilters )
 
   return {
     props: { 
