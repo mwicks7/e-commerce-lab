@@ -121,7 +121,7 @@ export async function getServerSideProps({ params }) {
   const defaultFilters = { category: params.slug, includePluto: false }
   const defaultSort = currentCategory.sorts[0].value
   const productData = await getProducts(defaultSort, defaultFilters )
-
+  
   return {
     props: { 
       categories, 
