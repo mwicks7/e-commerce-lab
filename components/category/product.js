@@ -19,7 +19,7 @@ export default function Product({ product }) {
       />
 
       <h3 className="product__name"><Link href={productUrl}>{product.name}</Link></h3>
-      <div className="product__price">${product.price.toLocaleString("en-US")}.00</div>
+      <div className="product__price">${product.price.toLocaleString("en-US")}</div>
       {details.map(d => (
         <div key={d.name + d.value + '_detail'} className="product__detail">
           {d.label}: {d.value} {d.units}

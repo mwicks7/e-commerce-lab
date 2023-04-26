@@ -12,7 +12,7 @@ export default function CartItems({ products, variant='' }) {
             </div>
             <div className="flex__col flex__col--8">
               <h3>{product.name}</h3>
-              ${product.price.toLocaleString("en-US")}.00
+              ${product.price.toLocaleString("en-US")}
             </div>
 
             {variant !== 'mini' &&
