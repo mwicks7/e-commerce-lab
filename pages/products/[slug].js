@@ -31,6 +31,11 @@ export default function ProductsPage({ categories, product }) {
       .then( (data) => setRelatedProducts(data))
   }
 
+  const handleAddToCart = useCallback((e)=> {
+    console.log('Added to cart', product);
+    document.getElementById('cartDrawerTrigger').click();
+  }, [product])
+
   return (
     <ShopLayout
       categories={categories}
@@ -69,7 +74,7 @@ export default function ProductsPage({ categories, product }) {
 
             <div className="p">
               <button 
-                onClick={() => alert('Add to cart')} 
+                onClick={handleAddToCart} 
                 className="button"
               >
                 Add to cart
