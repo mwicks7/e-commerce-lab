@@ -10,6 +10,7 @@ export default function CartPage({ categories, cartProducts }) {
   return (
     <ShopLayout
       categories={categories}
+      pageName="Cart"
     > 
       <div className="container container--padded">
         <section>

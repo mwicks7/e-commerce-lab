@@ -41,7 +41,7 @@ h1, .h1 {
 }
 
 h2, .h2 {
-  font-size: 22px;
+  font-size: 24px;
 }
 
 h3, .h3 {
@@ -126,4 +126,5 @@ a:hover {
 @import './components/checkboxBtn.scss';
 @import './components/button.scss';
 @import './components/select.scss';
+@import './components/table.scss';
 @import './components/drawer.scss';

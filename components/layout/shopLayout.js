@@ -9,7 +9,7 @@ import Drawer from '@/components/global/drawer'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function ShopLayout({ children, categories }) {
+export default function ShopLayout({ children, categories, pageName }) {
   const [toggleNav, setToggleNav] = useState(false)
   const [toggleCart, setToggleCart] = useState(false)
   const [cartProducts, setCartProducts] = useState([])
@@ -61,20 +61,22 @@ export default function ShopLayout({ children, categories }) {
               </div>
             </div>
             
-            <div className="flex__col--3 flex__col--align-center text--align-right ">
-              <button 
-                className="app__menu-btn app__menu-btn--cart"
-                onClick={() => setToggleCart((prev) => !prev)}
-                id="cartDrawerTrigger"
-              >
-                <Image 
-                  src={'/images/local_atm.svg'} 
-                  height={30} 
-                  width={30} 
-                  alt="Open cart"
-                />
-              </button>
-            </div>
+            {pageName !== 'Cart' && 
+              <div className="flex__col--3 flex__col--align-center text--align-right ">
+                <button 
+                  className="app__menu-btn app__menu-btn--cart"
+                  onClick={() => setToggleCart((prev) => !prev)}
+                  id="cartDrawerTrigger"
+                >
+                  <Image 
+                    src={'/images/local_atm.svg'} 
+                    height={30} 
+                    width={30} 
+                    alt="Open cart"
+                  />
+                </button>
+              </div>
+            }
           </div>
         
           <PrimaryNav 
@@ -95,36 +97,38 @@ export default function ShopLayout({ children, categories }) {
         />
       </Drawer>
       
+      {pageName !== 'Cart' && 
+        <Drawer 
+          location="right"
+          toggleState={toggleCart}
+          setToggleState={setToggleCart}
+          id="cartDrawer"
+          triggerId="cartDrawerTrigger"
+        >
+          <h2 className="h1">Cart</h2>
+          <CartSubtotal products={cartProducts} variant="mini"/>
+          <div className="spacer--small"></div>
+          <CartItems products={cartProducts} variant="mini"/>
+        </Drawer>
+      }
 
-      <Drawer 
-        location="right"
-        toggleState={toggleCart}
-        setToggleState={setToggleCart}
-        id="cartDrawer"
-        triggerId="cartDrawerTrigger"
-      >
-        <CartItems products={cartProducts} variant="mini"/>
-        <div className="spacer--small"></div>
-        <CartSubtotal products={cartProducts} variant="mini"/>
-      </Drawer>
+        <main className="main">
+          {children}
+          <div className="spacer spacer--lrg"></div>
+        </main>
+        
 
-      <main className="main">
-        {children}
-        <div className="spacer spacer--lrg"></div>
-      </main>
-      
-
-      <footer className="footer">
-        <div className="container container--padded">
-          <h4>Space Links</h4>
-          <ul>
-            <li>nasa.gov</li>
-            <li>wikipedia</li>
-            <li>space.com</li>
-            <li>https://esahubble.org/</li>
-          </ul>
-        </div>
-      </footer>
-    </div>
+        <footer className="footer">
+          <div className="container container--padded">
+            <h4>Space Links</h4>
+            <ul>
+              <li>nasa.gov</li>
+              <li>wikipedia</li>
+              <li>space.com</li>
+              <li>https://esahubble.org/</li>
+            </ul>
+          </div>
+        </footer>
+      </div>
   )
 }
