@@ -16,16 +16,13 @@ export default function ProductsPage({ categories, product }) {
   }, [product])
 
   const fetchRelatedProducts = (product) => {
-    fetch('/api/products', { 
+    fetch('/api/related-products', { 
       method: 'POST',
       body: JSON.stringify({
-        sort: '',
-        filters: {
-          slug: { $not: { $eq: product.slug} },
-          $or: [
-              { 'filters.type': product.filters.type },
-              { category: product.category } 
-          ]
+        product: {
+          slug: product.slug,
+          type: product.filters.type,
+          category: product.category
         },
         limit: 3
       })
