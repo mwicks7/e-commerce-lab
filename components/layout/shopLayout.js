@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import PrimaryNav from '@/components/layout/primaryNav'
 import CartItems from '@/components/cart/cartItems'
 import CartSubtotal from '@/components/cart/cartSubtotal'
+import Drawer from '@/components/global/drawer'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -41,6 +42,7 @@ export default function ShopLayout({ children, categories }) {
               <button 
                 className="app__menu-btn app__menu-btn--nav"
                 onClick={() => setToggleNav((prev) => !prev)}
+                id="navDrawerTrigger"
               >
                 <Image 
                   src={'/images/menu.svg'} 
@@ -63,6 +65,7 @@ export default function ShopLayout({ children, categories }) {
               <button 
                 className="app__menu-btn app__menu-btn--cart"
                 onClick={() => setToggleCart((prev) => !prev)}
+                id="cartDrawerTrigger"
               >
                 <Image 
                   src={'/images/local_atm.svg'} 
@@ -80,30 +83,30 @@ export default function ShopLayout({ children, categories }) {
         </div>        
       </header>
 
-      <div className={`drawer drawer--left ${toggleNav ? 'drawer--open' : ''}`}>
+      <Drawer 
+        location="left"
+        toggleState={toggleNav}
+        setToggleState={setToggleNav}
+        id="navDrawer"
+        triggerId="navDrawerTrigger"
+      >
         <PrimaryNav 
           categories={categories} 
         />
-      </div>
+      </Drawer>
+      
 
-      <div className={`drawer drawer--right ${toggleCart ? 'drawer--open' : ''}`}>
-        <div className="text--align-right">
-          <button 
-            className="app__menu-btn app__menu-btn--cart"
-            onClick={() => setToggleCart(false)}
-          >
-            <Image 
-              src={'/images/close.svg'} 
-              height={30} 
-              width={30} 
-              alt="Close Cart"
-            />
-          </button>
-        </div>
+      <Drawer 
+        location="right"
+        toggleState={toggleCart}
+        setToggleState={setToggleCart}
+        id="cartDrawer"
+        triggerId="cartDrawerTrigger"
+      >
         <CartItems products={cartProducts} variant="mini"/>
         <div className="spacer--small"></div>
         <CartSubtotal products={cartProducts} variant="mini"/>
-      </div>
+      </Drawer>
 
       <main className="main">
         {children}
