@@ -1,34 +1,72 @@
 .drawer {
+  visibility: hidden;
   position: fixed;
   z-index: 10;
-  top: 50px;
+  left: 0;
+  right: 0;
   bottom: 0;
-  width: 350px;
-  max-width: 100%;
-  background-color: #e7e7e7;
-  padding: 25px 15px;
-  transition: position .5s ease;
+  top: 50px;
 
   @include mq-small {
     top: 0;
   }
+
+  &.drawer--open {
+    visibility: visible;
+  }
 }
+
+  .drawer__content {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 350px;
+    max-width: 100%;
+    background-color: #e7e7e7;
+    padding: 25px 15px;
+  }
 
   .drawer--left {
     left: -350px;
-    transition: left .5s ease;
+    transition: left .3s ease;
 
-    &.drawer--open {
-      opacity: 1;
+    .drawer--open & {
       left: 0px;
+    }
+
+    .drawer--animate-out & {
+      left: -350px;
     }
   }
 
   .drawer--right {
     right: -350px;
-    transition: right .5s ease;
+    transition: right .3s ease;
 
-    &.drawer--open {
+    .drawer--open & {
       right: 0;
+    }
+
+    .drawer--animate-out & {
+      right: -350px;
+    }
+  }
+
+  .drawer__backdrop {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: black;
+    opacity: 0;
+    transition: opacity .3s ease;
+
+    .drawer--open & {
+      opacity: .4;
+    }
+
+    .drawer--animate-out & {
+      opacity: 0;
     }
   }
