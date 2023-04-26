@@ -1,12 +1,18 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 
 export default function Drawer({ children, id, triggerId, location, toggleState, setToggleState, hideCloseButton}) {
   const [animateOut, setAnimateOut] = useState(false)
-  
-  useEffect(() => {
-    const content = document.getElementById(id)
+  const didMount = useRef(false)
 
+  useEffect(() => {
+    if (!didMount.current) {
+      didMount.current = true
+      return
+    }
+
+    const content = document.getElementById(id)
+    const trigger = document.getElementById(triggerId)
     const trapFocus = (e) => {
       if (content.contains(e.relatedTarget)) return
       content.focus()
@@ -16,8 +22,8 @@ export default function Drawer({ children, id, triggerId, location, toggleState,
       content.focus()
       content.addEventListener('focusout', trapFocus)
     } else {
+      trigger.focus()
       content.removeEventListener('focusOut', trapFocus)
-      document.getElementById(triggerId).focus()
     }
 
     if (animateOut === false) return 
