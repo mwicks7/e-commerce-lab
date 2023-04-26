@@ -13,6 +13,7 @@ export default function Filters({ fieldsets, onChange }) {
 
             {fs.type === "toggle" && 
               <Toggle 
+                label={fs.label}
                 name={fs.name}
                 value={fs.value}
                 // checked={true}
