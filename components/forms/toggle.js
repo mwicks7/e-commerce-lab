@@ -1,5 +1,5 @@
 
-export default function Toggle({ name, value, checked, onChange }) {
+export default function Toggle({ label, name, value, checked, onChange }) {
   return (
     <label className="toggle">
       <input 
@@ -9,6 +9,7 @@ export default function Toggle({ name, value, checked, onChange }) {
         name={name} 
         checked={checked}
         onChange={onChange}
+        aria-label={label}
       />
       <span className="toggle__slider"></span>
     </label>

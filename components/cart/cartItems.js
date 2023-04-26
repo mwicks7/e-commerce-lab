@@ -6,7 +6,7 @@ export default function CartItems({ products, variant='' }) {
       <h2>Items ({products.length})</h2>
       <ul className="cart-items">
         {products.map(product => (
-          <li key={product.id + "_cart-item"} className="flex flex--padded">
+          <li key={product._id + "_cart-item"} className="flex flex--padded">
             <div className="flex__col flex__col--2">
               <Image src={product.images[0]} height={150} width={150} alt={product.name} />
             </div>

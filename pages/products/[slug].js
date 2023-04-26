@@ -55,6 +55,7 @@ export default function ProductsPage({ categories, product }) {
               images={product.images}
               height={1000}
               width={1000}
+              alt={product.name}
             />
           </section>
           
