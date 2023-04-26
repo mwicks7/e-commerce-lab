@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
-export default function Gallery({ images, height, width, url }) {
+export default function Gallery({ images, height, width, url, alt }) {
   const [activeImage, setActiveImage] = useState(images[0])
 
   const handleThumbClick = (e) => {
@@ -18,7 +18,7 @@ export default function Gallery({ images, height, width, url }) {
           <Image 
             className="gallery__image" 
             src={activeImage} 
-            alt="" 
+            alt={alt} 
             width={height}
             height={width}   
           />
@@ -29,7 +29,7 @@ export default function Gallery({ images, height, width, url }) {
         <Image 
           className="gallery__image" 
           src={activeImage} 
-          alt="" 
+          alt={alt}
           width={height}
           height={width}   
         />
@@ -42,10 +42,12 @@ export default function Gallery({ images, height, width, url }) {
             className="gallery__thumb"
           >
             <button 
+              disabled={activeImage === image ? true : false}
               className={`gallery__thumb-btn ${activeImage === image && "gallery__thumb-btn--active"}`} 
               style={{backgroundImage: `url(${image})`}}
-              onClick={handleThumbClick}>
-            </button>
+              onClick={handleThumbClick}
+              aria-label="View alternate image"
+            />
           </li>
         ))}
       </ul>

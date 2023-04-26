@@ -12,9 +12,10 @@ export default function Product({ product }) {
     <article className="product">
       <Gallery 
         images={product.images}
-        url={productUrl}
         height={300}
         width={300}
+        url={productUrl}
+        alt={`${product.name} detail page`}
       />
 
       <h3 className="product__name"><Link href={productUrl}>{product.name}</Link></h3>
