@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
-export default function CartSubtotal({ products, variant }) {
-  const subtotal = products.reduce((mem, product) => {
+export default function CartSubtotal({ cart, variant }) {
+  const subtotal = cart.products.reduce((mem, product) => {
     return mem + product.price
   }, 0)
   const tax = Math.round(subtotal * .07)
