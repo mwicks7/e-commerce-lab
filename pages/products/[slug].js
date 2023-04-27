@@ -41,8 +41,8 @@ export default function ProductsPage({ categories, product }) {
         product: product
       })
     })
-    
-    router.reload(window.location.pathname)
+
+    router.push('/cart')
 
     // document.getElementById('cartDrawerTrigger').click();
   }, [product])
