@@ -12,24 +12,24 @@ const inter = Inter({ subsets: ['latin'] })
 export default function ShopLayout({ children, categories, pageName }) {
   const [toggleNav, setToggleNav] = useState(false)
   const [toggleCart, setToggleCart] = useState(false)
-  const [cartProducts, setCartProducts] = useState([])
-
+  const [cart, setCart] = useState({ cartId: null, products: [] })
 
   useEffect(() => {
-      fetchCartProducts()
-  }, [])
+      fetchCart(setCart)
+  }, [setCart])
 
-  const fetchCartProducts = () => {
-    fetch('/api/products', { 
+  const fetchCart = (setCart) => {
+    fetch('/api/carts', { 
       method: 'POST',
       body: JSON.stringify({
-        sort: '',
-        filters: {},
-        limit: 3
+        cartId: 'a1'
       })
     })
       .then( (response) => response.json() )
-      .then( (data) => setCartProducts(data))
+      .then( (data) => {
+        setCart(data[0])
+        console.log(data[0])
+      })
   }
 
 
@@ -106,9 +106,9 @@ export default function ShopLayout({ children, categories, pageName }) {
           triggerId="cartDrawerTrigger"
         >
           <h2 className="h1">Cart</h2>
-          <CartSubtotal products={cartProducts} variant="mini"/>
+          <CartSubtotal cart={cart} variant="mini"/>
           <div className="spacer--small"></div>
-          <CartItems products={cartProducts} variant="mini"/>
+          <CartItems cart={cart} variant="mini"/>
         </Drawer>
       }
 

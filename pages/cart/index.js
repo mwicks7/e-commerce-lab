@@ -4,9 +4,9 @@ import ShopLayout from '@/components/layout/shopLayout'
 import CartItems from '@/components/cart/cartItems'
 import CartSubtotal from '@/components/cart/cartSubtotal'
 import { getCategories } from '@/lib/dbCategories'
-import { getProducts } from '@/lib/dbProducts'
+import { getCart } from '@/lib/dbCarts'
 
-export default function CartPage({ categories, cartProducts }) {
+export default function CartPage({ categories, cart }) {
   return (
     <ShopLayout
       categories={categories}
@@ -17,11 +17,11 @@ export default function CartPage({ categories, cartProducts }) {
           <h1>Cart</h1>
           <div className="flex">
             <div className="flex__col--left-aside">
-              <CartSubtotal products={cartProducts}/>
+              <CartSubtotal cart={cart}/>
             </div>
             
             <div className="flex__col--fluid">
-              <CartItems products={cartProducts} />
+              <CartItems cart={cart} />
             </div>
           </div>
         </section>
@@ -33,7 +33,7 @@ export default function CartPage({ categories, cartProducts }) {
 
 export async function getServerSideProps({ params }) {
   // Products
-  const cartProducts = await getProducts('', {}, 3)
+  const cart = await getCart('a1')
 
   // Categories
   const categoriesRes = await getCategories()
@@ -45,7 +45,7 @@ export async function getServerSideProps({ params }) {
   return {
     props: { 
       categories, 
-      cartProducts,
+      cart: cart[0],
       key: 'cart_page'
     },
   }

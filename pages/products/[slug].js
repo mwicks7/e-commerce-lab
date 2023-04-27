@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
+import { useRouter } from 'next/router'
 import { getCategories } from '@/lib/dbCategories'
 import { getProducts } from '@/lib/dbProducts'
 import ShopLayout from '@/components/layout/shopLayout'
@@ -10,6 +11,7 @@ import { mapFilters } from '@/lib/filterMap'
 export default function ProductsPage({ categories, product }) {
   const [relatedProducts, setRelatedProducts] = useState([])
   const details = mapFilters(product, 'preview')
+  const router = useRouter()
 
   useEffect(() => {
       fetchRelatedProducts(product)
@@ -30,6 +32,20 @@ export default function ProductsPage({ categories, product }) {
       .then( (response) => response.json() )
       .then( (data) => setRelatedProducts(data))
   }
+
+  const handleAddToCart = useCallback(async (e)=> {
+    const response = await fetch('/api/carts', {
+      method: 'POST',
+      body: JSON.stringify({
+        cartId: 'a1',
+        product: product
+      })
+    })
+    
+    router.reload(window.location.pathname)
+
+    // document.getElementById('cartDrawerTrigger').click();
+  }, [product])
 
   return (
     <ShopLayout
@@ -69,7 +85,7 @@ export default function ProductsPage({ categories, product }) {
 
             <div className="p">
               <button 
-                onClick={() => alert('Add to cart')} 
+                onClick={handleAddToCart} 
                 className="button"
               >
                 Add to cart
