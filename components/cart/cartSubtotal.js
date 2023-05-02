@@ -10,19 +10,21 @@ export default function CartSubtotal({ cart, variant }) {
   return (
     <section className="table">
       <table>
-        <tr>
-          <th>Subtotal:</th>
-          <td>${subtotal.toLocaleString("en-US")}</td>
-        </tr>
-        <tr>
-          <th>Tax:</th>
-          <td>${tax.toLocaleString("en-US")}</td>
-        </tr>
-        <tr>
-          <th>Total:</th>
-          <td>${total.toLocaleString("en-US")}</td>
-        </tr>
-      </table>
+        <tbody>
+          <tr>
+            <th>Subtotal:</th>
+            <td>${subtotal.toLocaleString("en-US")}</td>
+          </tr>
+          <tr>
+            <th>Tax:</th>
+            <td>${tax.toLocaleString("en-US")}</td>
+          </tr>
+          <tr>
+            <th>Total:</th>
+            <td>${total.toLocaleString("en-US")}</td>
+          </tr>
+          </tbody>
+        </table>
 
       {variant === 'mini' &&
         <p>
