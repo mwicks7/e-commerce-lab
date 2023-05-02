@@ -1,5 +1,4 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
-import { useRouter } from 'next/router'
 import { getCategories } from '@/lib/dbCategories'
 import { getProducts } from '@/lib/dbProducts'
 import ShopLayout from '@/components/layout/shopLayout'
@@ -7,31 +6,34 @@ import Breadcrumbs from '@/components/global/breadcrumbs'
 import Gallery from '@/components/global/gallery'
 import ProductsGrid from '@/components/category/productsGrid'
 import { mapFilters } from '@/lib/filterMap'
+import { useAppDispatch } from '@/lib/hooks'
+import { addItem } from '@/components/cart/cartSlice'
 
 export default function ProductsPage({ categories, product }) {
   const [relatedProducts, setRelatedProducts] = useState([])
   const details = mapFilters(product, 'preview')
-  const router = useRouter()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
-      fetchRelatedProducts(product)
-  }, [product])
-
-  const fetchRelatedProducts = (product) => {
-    fetch('/api/related-products', { 
-      method: 'POST',
-      body: JSON.stringify({
-        product: {
-          slug: product.slug,
-          type: product.filters.type,
-          category: product.category
-        },
-        limit: 3
+    const fetchRelatedProducts = () => {
+      fetch('/api/related-products', { 
+        method: 'POST',
+        body: JSON.stringify({
+          product: {
+            slug: product.slug,
+            type: product.filters.type,
+            category: product.category
+          },
+          limit: 3
+        })
       })
-    })
       .then( (response) => response.json() )
       .then( (data) => setRelatedProducts(data))
-  }
+    }
+    
+    fetchRelatedProducts()
+  }, [product])
+
 
   const handleAddToCart = useCallback(async (e)=> {
     const response = await fetch('/api/carts', {
@@ -42,9 +44,9 @@ export default function ProductsPage({ categories, product }) {
       })
     })
 
-    router.push('/cart')
+    dispatch(addItem(product))
 
-    // document.getElementById('cartDrawerTrigger').click();
+    document.getElementById('cartDrawerTrigger').click();
   }, [product])
 
   return (
