@@ -47,7 +47,7 @@ export default function ProductsPage({ categories, product }) {
     dispatch(addItem(product))
 
     document.getElementById('cartDrawerTrigger').click();
-  }, [product])
+  }, [product, dispatch])
 
   return (
     <ShopLayout

@@ -18,13 +18,8 @@ export default function ShopLayout({ children, categories, pageName }) {
   
   const dispatch = useAppDispatch()
   const cart = useAppSelector(selectCart)
-  // const [cart, setCart] = useState({ cartId: null, products: [] })
 
   useEffect(() => {
-      fetchCart(dispatch)
-  }, [dispatch])
-
-  const fetchCart = (dispatch) => {
     fetch('/api/carts', { 
       method: 'POST',
       body: JSON.stringify({
@@ -33,12 +28,10 @@ export default function ShopLayout({ children, categories, pageName }) {
     })
       .then( (response) => response.json() )
       .then( (data) => {
-        // setCart(data[0])
         dispatch(createCart(data[0]))
         console.log(data[0])
       })
-  }
-
+  }, [dispatch])
 
   return (
     <div className={`app ${inter.className}`}>
