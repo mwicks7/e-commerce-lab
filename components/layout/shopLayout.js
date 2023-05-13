@@ -6,19 +6,20 @@ import PrimaryNav from '@/components/layout/primaryNav'
 import CartItems from '@/components/cart/cartItems'
 import CartSubtotal from '@/components/cart/cartSubtotal'
 import Drawer from '@/components/global/drawer'
+import { useAppSelector, useAppDispatch } from '@/lib/hooks'
+import { createCart, selectCart } from '@/components/cart/cartSlice'
+
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function ShopLayout({ children, categories, pageName }) {
   const [toggleNav, setToggleNav] = useState(false)
   const [toggleCart, setToggleCart] = useState(false)
-  const [cart, setCart] = useState({ cartId: null, products: [] })
+  
+  const dispatch = useAppDispatch()
+  const cart = useAppSelector(selectCart)
 
   useEffect(() => {
-      fetchCart(setCart)
-  }, [setCart])
-
-  const fetchCart = (setCart) => {
     fetch('/api/carts', { 
       method: 'POST',
       body: JSON.stringify({
@@ -27,11 +28,10 @@ export default function ShopLayout({ children, categories, pageName }) {
     })
       .then( (response) => response.json() )
       .then( (data) => {
-        setCart(data[0])
+        dispatch(createCart(data[0]))
         console.log(data[0])
       })
-  }
-
+  }, [dispatch])
 
   return (
     <div className={`app ${inter.className}`}>
